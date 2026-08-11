@@ -1,0 +1,26 @@
+# Video is a poor fit for git (large, incompressible, and this site
+# isn't deployed anywhere yet) — kept on disk, not tracked. The poster
+# thumbnails (.jpg) stay tracked so the gallery still shows something.
+*.mp4
+
+# OS junk
+.DS_Store
+
+# Editor / local tooling (not part of the deployed site)
+.claude/
+
+# Raw source material — originals for what's already processed into
+# images/, assets/, and Badges/. Kept locally, not in the repo.
+# (Leading slash anchors these to the repo root — without it, "Projects/"
+# would also match images/projects/, which the live site needs.)
+/Projects/
+/Personal photos/
+/Clients photos/
+/testmonials photos/
+
+# Full pre-redesign site backup — superseded by git history.
+/V1/
+
+# Source content brief (working notes, not part of the deployed site).
+/Mohamed_Atef_Portfolio.docx
+/Mohamed_Atef_Portfolio (1).docx

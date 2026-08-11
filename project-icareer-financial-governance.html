@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>iCareer — Financial Governance System | Mohamed Atef</title>
+<meta name="description" content="Budget approvals were dying in inboxes across 13 projects. I replaced them with a state machine and a unique ID.">
+<link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&family=Exo+2:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css?v=9">
+</head>
+<body>
+
+<!-- ===== HEADER / NAV ===== -->
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="index.html" class="logo-lockup">
+      <svg class="sail-mark" viewBox="0 0 100 100" aria-hidden="true">
+        <path d="M30 85 C10 55 15 25 40 12 C55 5 70 15 75 25 C80 35 65 50 45 55 C35 58 30 70 30 85 Z" class="sail-fill"/>
+        <path d="M30 85 C38 65 55 48 75 25" class="sail-mast"/>
+      </svg>
+      <span class="logo-text">
+        Mohamed Atef
+        <small>Regional PM Team Lead</small>
+      </span>
+    </a>
+
+    <nav class="main-nav" id="main-nav">
+      <a href="about.html">About</a>
+      <a href="index.html#services">Services</a>
+      <a href="projects.html">Projects</a>
+      <a href="https://calendar.app.google/ZoXxtuhj7PLPx5B56" target="_blank" rel="noopener noreferrer" class="nav-cta">Book a Call</a>
+    </nav>
+
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main>
+
+  <!-- ===== PROJECT DETAIL ===== -->
+  <section class="project-detail band-light" id="project-detail">
+    <div class="container">
+      <p class="section-note"><a href="projects.html">&larr; Back to all projects</a></p>
+      <p class="work-tag">Automation · Financial Control</p>
+      <h1>iCareer — Financial Governance System</h1>
+      <p class="project-tagline">Budget approvals were dying in inboxes across 13 projects. I replaced them with a state machine and a unique ID.</p>
+
+      <div class="project-meta-grid">
+        <div class="meta-item"><span>Client / Donor</span><strong>Internal — iCareer, Basharsoft Corporation</strong></div>
+        <div class="meta-item"><span>Location</span><strong>Egypt</strong></div>
+        <div class="meta-item"><span>Role</span><strong>Project Manager — sole delivery</strong></div>
+        <div class="meta-item"><span>Team</span><strong>Sole delivery, serving 30 staff across 5 functions</strong></div>
+        <div class="meta-item"><span>Duration</span><strong>1 month build · 3 months to full adoption</strong></div>
+        <div class="meta-item"><span>Approach</span><strong>Root cause analysis, control accounts, scripted approval state machine</strong></div>
+        <div class="meta-item"><span>Scale</span><strong>13 concurrent projects</strong></div>
+      </div>
+
+      <div class="project-body">
+        <h2>The Mandate</h2>
+        <p>Replace an email-based budget request and approval process with a controlled, auditable financial governance system that gives executive management real-time visibility of every pound committed across the entire portfolio.</p>
+
+        <h2>The Challenge</h2>
+        <p>Six project managers, seven operations specialists, seven marketing specialists, six partnerships officers and four finance team members were requesting, approving, and processing budget across 13 projects entirely by email. Payments were lost in threads. Tracking was near impossible. Nobody could say which project carried which cost without asking finance directly. Root cause: no single system of record, no cost coding, and no state machine governing approvals.</p>
+
+        <h2>The Execution</h2>
+        <ul class="execution-list">
+          <li>Built a budget template with control accounts and cost line items covering the complete chart of expenditure.</li>
+          <li>Added a time-phased budget sheet owned by the project manager, so spend had a planned shape before it had an actual.</li>
+          <li>Built the request front door as a Google Form writing into a scripted sheet — the requester selects the project and the specific cost line item, so coding happens at source.</li>
+          <li>Encoded the approval state machine: PM approves in-sheet, finance processes in-sheet, and every state transition fires an automated notification.</li>
+          <li>Assigned a unique tracking ID to every request, making each one individually auditable.</li>
+          <li>Built the full notification chain: confirmation to requester, alert to PM, approval or rejection notice back to requester, handoff to finance on acceptance, and proof of payment returned to both PM and requester on completion.</li>
+          <li>Built the live dashboard: expenditure per project, per cost line item, per month, queryable at any moment by anyone.</li>
+        </ul>
+
+        <h2>Results Delivered</h2>
+        <ul class="results-list">
+          <li>13-project portfolio spend made visible in real time to executive management.</li>
+          <li>Full adoption across all five functions within three months of launch.</li>
+          <li>Lost payments and untraceable costs eliminated as a category of problem.</li>
+          <li>Executives self-serve their own reporting — no finance request required.</li>
+          <li>System remains in active daily use and under continuous iteration.</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== CTA ===== -->
+  <section class="cta-section band-deep" id="contact">
+    <div class="container cta-inner">
+      <h2>Have a project that needs a steady hand?</h2>
+      <p>Book a free 15-minute call — no pressure, just a conversation about where you're stuck.</p>
+      <a href="https://calendar.app.google/ZoXxtuhj7PLPx5B56" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-large">Book a Free 15-Min Call</a>
+    </div>
+  </section>
+
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <a href="index.html" class="logo-lockup">
+        <svg class="sail-mark" viewBox="0 0 100 100" aria-hidden="true">
+          <path d="M30 85 C10 55 15 25 40 12 C55 5 70 15 75 25 C80 35 65 50 45 55 C35 58 30 70 30 85 Z" class="sail-fill"/>
+          <path d="M30 85 C38 65 55 48 75 25" class="sail-mast"/>
+        </svg>
+        <span class="logo-text">
+          Mohamed Atef
+          <small>Regional PM Team Lead</small>
+        </span>
+      </a>
+      <p>Operating across Egypt · Saudi Arabia · Jordan</p>
+    </div>
+
+    <nav class="footer-nav">
+      <a href="about.html">About</a>
+      <a href="index.html#services">Services</a>
+      <a href="projects.html">Projects</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+
+    <div class="footer-social">
+      <a href="https://www.linkedin.com/in/mohatef116/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">LinkedIn</a>
+      <a href="mailto:moh.atef116@gmail.com" aria-label="Email">Email</a>
+    </div>
+  </div>
+  <div class="footer-gradient-bar"></div>
+  <div class="container footer-bottom">
+    <p>&copy; 2026 Mohamed Atef. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="js/main.js?v=9"></script>
+</body>
+</html>
