@@ -3,6 +3,11 @@
 # thumbnails (.jpg) stay tracked so the gallery still shows something.
 *.mp4
 
+# ...except these two small silent UI-demo clips (~1.1MB combined) —
+# too small to be worth external hosting, so they stay in git.
+!images/projects/icareer-clickup-rollout/demo-project-hierarchy.mp4
+!images/projects/icareer-clickup-rollout/demo-milestone-tracking.mp4
+
 # OS junk
 .DS_Store
 
