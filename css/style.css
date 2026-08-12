@@ -201,14 +201,22 @@ section { padding: clamp(72px, 9vw, 132px) 0; position: relative; }
   pointer-events: none;
 }
 
-/* Grain — premium texture, applied only on dark bands */
+/* Grain — premium texture, applied only on dark bands.
+   Uses mask-image (not background-image) deliberately: a full-bleed
+   background-image is a valid Largest Contentful Paint candidate and,
+   being an instant data-URI with no network fetch, was winning the LCP
+   race against real content (hero photos) on every dark section. A
+   mask isn't an LCP image source, so this keeps the identical visual
+   texture without competing for the LCP measurement. */
 .band-deep::after,
 .band-navy::after {
   content: "";
   position: absolute;
   inset: 0;
   z-index: -1;
-  background-image: var(--grain);
+  background: #fff;
+  -webkit-mask-image: var(--grain);
+  mask-image: var(--grain);
   opacity: 0.05;
   mix-blend-mode: overlay;
   pointer-events: none;
@@ -395,7 +403,10 @@ img.photo-immersed {
 
 .nav-toggle {
   display: none; flex-direction: column; gap: 5px;
-  background: none; border: none; cursor: pointer; padding: 6px;
+  background: none; border: none; cursor: pointer;
+  /* padding sized so the tap target clears the 44x44px minimum
+     (WCAG 2.5.5 / mobile touch-target guidance), not just the visible icon */
+  padding: 14px 10px;
 }
 .nav-toggle span {
   width: 24px; height: 2px; background: var(--white); border-radius: 2px;
@@ -1542,9 +1553,15 @@ img.photo-immersed {
   from { opacity: 0; transform: translateY(24px); }
   to   { opacity: 1; transform: none; }
 }
+/* transform-only: no opacity here deliberately — an element that starts
+   at opacity:0 is never credited as Largest Contentful Paint by Chrome,
+   even after a later animation brings it to opacity:1. The hero photos
+   are the site's actual LCP candidates, so they need to be visible (at
+   full opacity) from first paint; the slide+scale motion alone still
+   reads as an entrance. */
 @keyframes hero-in-media {
-  from { opacity: 0; transform: translateY(42px) scale(0.985); }
-  to   { opacity: 1; transform: none; }
+  from { transform: translateY(42px) scale(0.985); }
+  to   { transform: none; }
 }
 @keyframes hero-in-sail {
   from { opacity: 0;    transform: translateY(-50%) translateX(52px); }
@@ -1651,6 +1668,9 @@ img.photo-immersed {
   .main-nav.is-open { display: flex; }
   .main-nav .nav-cta { width: 100%; text-align: center; justify-content: center; }
   .nav-toggle { display: flex; }
+  /* stacked mobile menu links were a ~23px tap target with no padding —
+     pad to clear the 44px touch-target minimum */
+  .main-nav a:not(.nav-cta) { display: block; padding: 12px 4px; }
 
   .work-grid, .built-grid, .why-grid, .story-flow,
   .values-inline, .badges-grid, .process-steps {

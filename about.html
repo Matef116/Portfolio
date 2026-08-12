@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&family=Exo+2:wght@400;600&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="images/mohamed-atef-about.webp" type="image/webp">
-<link rel="stylesheet" href="css/style.css?v=10">
+<link rel="stylesheet" href="css/style.css?v=11">
 </head>
 <body>
 
@@ -46,7 +46,13 @@
   <!-- ===== 1. STORY — opening statement, three stages, values folded in ===== -->
   <section class="about story band-light" id="about">
     <div class="container about-inner">
-      <img src="images/mohamed-atef-about.png" alt="Mohamed Atef, Regional Project Management Team Lead" class="photo-immersed about-media">
+      <picture class="about-media">
+        <source type="image/webp" media="(max-width: 900px)" srcset="images/mohamed-atef-about-sm.webp">
+        <source type="image/webp" srcset="images/mohamed-atef-about.webp">
+        <source media="(max-width: 900px)" srcset="images/mohamed-atef-about-sm.png">
+        <img src="images/mohamed-atef-about.png" width="886" height="1600" fetchpriority="high"
+             alt="Mohamed Atef, Regional Project Management Team Lead" class="photo-immersed">
+      </picture>
       <div class="about-text">
         <p class="eyebrow">About Me</p>
         <h2>You've probably had the project that was green for three months and then suddenly wasn't.</h2>
