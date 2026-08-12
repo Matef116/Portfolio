@@ -1168,6 +1168,8 @@ img.photo-immersed {
   justify-content: center;
 }
 .contact-info a {
+  display: inline-block;
+  padding: 12px 0;
   color: var(--navy-200);
   font-size: 0.88rem;
   font-weight: 600;
@@ -1439,7 +1441,7 @@ img.photo-immersed {
 .photo-grid .photo-slot { margin-bottom: 0; }
 .photo-grid img.photo-item {
   width: 100%;
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 16 / 9;
   object-fit: cover;
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow);
@@ -1503,6 +1505,9 @@ img.photo-immersed {
   position: fixed; top: 20px; right: 28px;
   background: none; border: none;
   color: var(--white); font-size: 2.5rem; line-height: 1;
+  /* padding sized so the tap target clears the 44x44px minimum
+     (WCAG 2.5.5), not just the visible glyph */
+  padding: 12px 16px;
   cursor: pointer; z-index: 1001;
 }
 .lightbox-close:hover { color: var(--gold-300); }
@@ -1525,7 +1530,7 @@ img.photo-immersed {
   color: var(--slate-400);
 }
 .footer-nav, .footer-social { display: flex; gap: 22px; font-size: 0.86rem; }
-.footer-nav a, .footer-social a { color: var(--navy-100); transition: color var(--transition); }
+.footer-nav a, .footer-social a { display: inline-block; padding: 12px 0; color: var(--navy-100); transition: color var(--transition); }
 .footer-nav a:hover, .footer-social a:hover { color: var(--gold-300); }
 
 .footer-gradient-bar { height: 3px; background: var(--brand-gradient); }
@@ -1597,6 +1602,32 @@ img.photo-immersed {
 /* =========================================================
    Responsive
    ========================================================= */
+
+/* Nav hamburger — kept separate from the 720px content-layout
+   breakpoint below and raised to 1024px. Below 1024px the site is
+   touch-primary (tablet portrait, landscape phones), and the desktop
+   .main-nav a links have no vertical padding (~23px tall) — well
+   under the 44px touch-target minimum, with no fallback between
+   721-1024px before this rule existed. */
+@media (max-width: 1024px) {
+  .main-nav {
+    position: absolute;
+    top: 100%; left: 0; right: 0;
+    background: rgba(10, 22, 40, 0.98);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 22px 20px 26px;
+    gap: 18px;
+    display: none;
+  }
+  .main-nav.is-open { display: flex; }
+  .main-nav .nav-cta { width: 100%; text-align: center; justify-content: center; }
+  .main-nav a:not(.nav-cta) { display: block; padding: 12px 4px; }
+  .nav-toggle { display: flex; }
+}
+
 @media (max-width: 1080px) {
   .glance-grid { grid-template-columns: repeat(2, 1fr); gap: 34px 0; }
   .glance-item:nth-child(2) { border-right: 0; padding-right: 0; }
