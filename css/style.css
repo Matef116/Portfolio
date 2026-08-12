@@ -91,7 +91,12 @@ body {
   overflow-x: hidden;
 }
 
-img { max-width: 100%; display: block; }
+/* height:auto is the required companion to the width/height attributes now on
+   every <img>. Those attributes are presentational hints that would otherwise
+   set a literal pixel height and override CSS aspect-ratio sizing (which is
+   exactly what made the project galleries grow). Rules that need a specific
+   height still declare one at higher specificity. */
+img { max-width: 100%; display: block; height: auto; }
 a { color: inherit; text-decoration: none; }
 ul { list-style: none; }
 
@@ -513,6 +518,16 @@ img.photo-immersed {
   align-items: flex-end;
   align-self: end;
 }
+/* Responsive images are wrapped in <picture> to offer AVIF/WebP. display:contents
+   makes the wrapper generate no box at all, so the <img> stays the direct layout
+   child of its grid/flex parent and every existing rule applies exactly as before.
+   The two hero portraits override this below and keep their own block box. */
+picture { display: contents; }
+/* display:contents promotes picture's children to grid/flex items, and <source>
+   has no UA display:none, so each source would claim its own grid cell and push
+   the images onto separate rows. Suppress them explicitly. */
+picture > source { display: none; }
+
 .hero-media picture, .about-media picture { display: block; }
 .hero-media img.photo-immersed {
   max-height: min(74vh, 660px);

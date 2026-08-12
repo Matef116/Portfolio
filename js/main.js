@@ -182,7 +182,11 @@ if (galleryImages.length) {
     document.body.style.overflow = '';
   };
 
-  galleryImages.forEach(img => img.addEventListener('click', () => openLightbox(img.src, img.alt)));
+  // data-full points at a full-resolution WebP. The grid <img> now carries a
+  // display-sized source (~882px) for page-load speed, which would look soft
+  // blown up to full screen, so the lightbox opens the large version instead.
+  galleryImages.forEach(img => img.addEventListener(
+    'click', () => openLightbox(img.dataset.full || img.src, img.alt)));
   closeBtn.addEventListener('click', closeLightbox);
   overlay.addEventListener('click', e => { if (e.target === overlay) closeLightbox(); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
