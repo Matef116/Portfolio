@@ -1447,6 +1447,31 @@ img.photo-immersed {
   background: #000;
 }
 
+/* YouTube embeds — responsive box so the iframe scales with the page
+   instead of the fixed pixel size YouTube's embed code assumes. */
+.yt-embed {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lift);
+  overflow: hidden;
+  background: #000;
+}
+.yt-embed iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+/* Shorts are 9:16 — full landscape width would stretch it absurdly tall */
+.yt-embed.is-vertical {
+  aspect-ratio: 9 / 16;
+  max-width: 380px;
+  margin: 0 auto;
+}
+
 /* Lightbox */
 .lightbox-overlay {
   position: fixed; inset: 0;
