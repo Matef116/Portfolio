@@ -140,15 +140,23 @@ p { color: var(--slate-600); }
   padding: 0 28px;
 }
 
-/* Labels / eyebrows — the brand's specified label device */
+/* Labels / eyebrows — the brand's specified label device.
+   Color is gold-700, not gold-500: gold-500 on the light/slate band
+   backgrounds used throughout the site (about.html, projects.html, every
+   project detail page) measures ~3:1 contrast, below the 4.5:1 WCAG AA
+   floor for this text size, so it read as washed-out / barely visible.
+   gold-700 measures ~6.3-6.7:1 against those same backgrounds, a solid
+   pass with margin, while still reading as the brand's gold accent.
+   Font-size and weight bumped slightly for legibility at this small a
+   size regardless of background. */
 .eyebrow {
   display: block;
   font-family: var(--font-body);
   text-transform: uppercase;
-  letter-spacing: 0.2em;
-  font-size: 0.7rem;
-  font-weight: 600;
-  color: var(--gold-500);
+  letter-spacing: 0.18em;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--gold-700);
   margin-bottom: 1rem;
 }
 .eyebrow::before {
@@ -156,7 +164,7 @@ p { color: var(--slate-600); }
   display: inline-block;
   width: 22px;
   height: 1px;
-  background: var(--gold-500);
+  background: var(--gold-700);
   vertical-align: middle;
   margin-right: 12px;
   margin-bottom: 3px;
@@ -629,12 +637,14 @@ picture > source { display: none; }
 }
 .card:hover { background: linear-gradient(90deg, rgba(196,135,10,0.05), transparent 55%); }
 
+/* gold-700, not gold-500: same WCAG contrast fix as .eyebrow above --
+   this only ever appears on band-light sections. */
 .card-icon {
   font-family: var(--font-heading);
   font-weight: 800;
   font-size: 1rem;
   letter-spacing: 0.04em;
-  color: var(--gold-500);
+  color: var(--gold-700);
   padding-top: 6px;
   font-variant-numeric: tabular-nums;
 }
@@ -735,15 +745,18 @@ picture > source { display: none; }
 .work-card.is-featured p { font-size: 1rem; max-width: 46ch; }
 .work-card.is-featured .stats strong { font-size: 1.75rem; }
 
+/* gold-700, not gold-600: gold-600 on this badge's gold-50 fill measures
+   ~4.5:1, right at the WCAG AA floor with no margin at this small a size.
+   gold-700 measures ~6.4:1, a solid pass -- same reasoning as .eyebrow above. */
 .work-tag {
   display: inline-block;
   width: fit-content;
   font-family: var(--font-body);
-  font-size: 0.64rem;
-  font-weight: 600;
+  font-size: 0.7rem;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.16em;
-  color: var(--gold-600);
+  letter-spacing: 0.14em;
+  color: var(--gold-700);
   background: var(--gold-50);
   padding: 5px 11px;
   border-radius: var(--radius-sm);
@@ -833,14 +846,16 @@ picture > source { display: none; }
 }
 .band-deep .story-flow, .band-navy .story-flow { border-top-color: rgba(255,255,255,0.14); }
 
+/* gold-700 + slightly larger/bolder, not gold-500 at 0.68rem: same WCAG
+   contrast fix as .eyebrow above -- this only ever appears on band-light. */
 .story-stage-num {
   display: block;
   font-family: var(--font-body);
-  font-weight: 600;
-  font-size: 0.68rem;
-  letter-spacing: 0.2em;
+  font-weight: 700;
+  font-size: 0.74rem;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--gold-500);
+  color: var(--gold-700);
   margin-bottom: 18px;
 }
 .story-stage h3 { font-size: clamp(1.15rem, 1.6vw, 1.4rem); margin-bottom: 14px; }
@@ -866,13 +881,15 @@ picture > source { display: none; }
 .value-card:last-child { border-right: 0; padding-right: 0; }
 .band-deep .value-card { border-right-color: rgba(255,255,255,0.12); }
 
+/* gold-700, not gold-500: same WCAG contrast fix as .eyebrow above --
+   this only ever appears on band-light sections. */
 .value-number {
   display: block;
   font-family: var(--font-heading);
   font-weight: 800;
   font-size: 0.78rem;
   letter-spacing: 0.12em;
-  color: var(--gold-500);
+  color: var(--gold-700);
   margin-bottom: 10px;
 }
 .value-card h3 { margin: 0 0 8px; font-size: 1.05rem; }
@@ -1012,11 +1029,13 @@ picture > source { display: none; }
   transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition);
 }
 .domain-tile:hover { border-color: var(--gold-300); transform: translateY(-2px); box-shadow: var(--shadow); }
+/* gold-700, not gold-500: same WCAG contrast fix as .eyebrow above --
+   this only ever appears on band-light/band-slate sections. */
 .domain-num {
   font-family: var(--font-heading);
   font-weight: 800;
   font-size: 0.68rem;
-  color: var(--gold-500);
+  color: var(--gold-700);
   letter-spacing: 0.08em;
 }
 .domain-tile h3 { font-size: 0.9rem; margin: 0; font-weight: 600; }
