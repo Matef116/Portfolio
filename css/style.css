@@ -882,7 +882,12 @@ picture > source { display: none; }
 .step:hover p { color: var(--navy-100); }
 
 /* =========================================================
-   WORK — featured hierarchy, not four equal cards
+   WORK — immersive cover cards. The photo is the card's full
+   background (position:absolute, edge to edge under the rounded
+   corners) rather than a cropped strip above a white body; a gradient
+   scrim keeps the overlaid copy legible regardless of what's in the
+   photo. Text is white/light throughout this component now that
+   every card sits directly on its own photo, not a white surface.
    ========================================================= */
 .work-grid {
   display: grid;
@@ -891,51 +896,69 @@ picture > source { display: none; }
 }
 
 .work-card {
-  background: var(--white);
-  border: 1px solid var(--slate-100);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
+  position: relative;
   display: flex;
   flex-direction: column;
+  justify-content: flex-end;
+  aspect-ratio: 4 / 5;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--navy-800);
   color: inherit;
-  transition: transform 320ms var(--ease-out), box-shadow 320ms var(--ease-out), border-color var(--transition);
+  transition: transform 320ms var(--ease-out), box-shadow 320ms var(--ease-out);
 }
-.work-card:hover {
-  transform: translateY(-6px);
-  box-shadow: var(--shadow-lift);
-  border-color: var(--gold-300);
-}
-.work-card h3 { margin: 0 0 8px; font-size: 1.06rem; color: var(--navy-900); }
-.work-card p { font-size: 0.9rem; margin-bottom: 18px; }
+.work-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lift); }
+.work-card h3 { margin: 0 0 8px; font-size: 1.06rem; color: var(--white); }
+.work-card p { font-size: 0.9rem; margin-bottom: 0; color: var(--navy-100); }
 
-.work-card-cover { width: 100%; aspect-ratio: 16 / 10; overflow: hidden; background: var(--navy-800); }
+.work-card-cover {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
 .work-card-cover img {
   width: 100%; height: 100%; object-fit: cover; display: block;
   transition: transform 600ms var(--ease-out);
 }
-.work-card:hover .work-card-cover img { transform: scale(1.045); }
+.work-card:hover .work-card-cover img { transform: scale(1.06); }
 
-.work-card-body { padding: 24px; display: flex; flex-direction: column; flex: 1; }
+/* the scrim: solid enough behind the text (bottom) to guarantee contrast
+   on any photo, fully clear by the upper third so the cover still reads
+   as a photo, not a tinted rectangle */
+.work-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  /* fully opaque at the very bottom, not just near-opaque: a merely
+     high-opacity stop still lets a bright cover photo (e.g. a light UI
+     screenshot) tint the scrim, which softened the tag pill's definition
+     against those specific covers */
+  background: linear-gradient(to top,
+    rgba(10, 22, 40, 1) 0%,
+    rgba(10, 22, 40, 0.82) 32%,
+    rgba(10, 22, 40, 0.25) 58%,
+    transparent 78%);
+  pointer-events: none;
+}
 
-/* The featured case — spans the full row, image beside copy */
+.work-card-body { position: relative; z-index: 1; padding: 22px; }
+
+/* The featured case — spans the full row, same immersed treatment,
+   just wider and with larger type; text column capped so it doesn't
+   stretch full-bleed-wide on a cinematic banner. */
 .work-card.is-featured {
   grid-column: 1 / -1;
-  flex-direction: row;
-  align-items: stretch;
+  aspect-ratio: 21 / 8;
 }
-.work-card.is-featured .work-card-cover {
-  width: 54%;
-  aspect-ratio: auto;
-  flex-shrink: 0;
-}
-.work-card.is-featured .work-card-body { padding: clamp(28px, 3.4vw, 46px); justify-content: center; }
+.work-card.is-featured .work-card-body { padding: clamp(28px, 3.4vw, 46px); max-width: 640px; }
 .work-card.is-featured h3 { font-size: clamp(1.3rem, 2.1vw, 1.85rem); font-weight: 800; letter-spacing: -0.025em; }
 .work-card.is-featured p { font-size: 1rem; max-width: 46ch; }
-.work-card.is-featured .stats strong { font-size: 1.75rem; }
 
 /* gold-700, not gold-600: gold-600 on this badge's gold-50 fill measures
    ~4.5:1, right at the WCAG AA floor with no margin at this small a size.
-   gold-700 measures ~6.4:1, a solid pass -- same reasoning as .eyebrow above. */
+   gold-700 measures ~6.4:1, a solid pass -- same reasoning as .eyebrow above.
+   The pill is opaque, so it reads the same regardless of the photo behind it. */
 .work-tag {
   display: inline-block;
   width: fit-content;
@@ -946,6 +969,7 @@ picture > source { display: none; }
   letter-spacing: 0.12em;
   color: var(--gold-700);
   background: var(--gold-50);
+  box-shadow: 0 2px 8px rgba(5, 12, 24, 0.3);
   padding: 6px 12px;
   border-radius: var(--radius-sm);
   margin-bottom: 12px;
@@ -955,10 +979,9 @@ picture > source { display: none; }
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.11em;
-  color: var(--slate-700);
+  color: var(--navy-200);
   margin-bottom: 10px;
 }
-.work-card .stats { margin-top: auto; }
 
 .work-cta { margin-top: 44px; }
 
@@ -984,30 +1007,6 @@ picture > source { display: none; }
   flex: 1;
   height: 1px;
   background: linear-gradient(90deg, var(--gold-300), transparent);
-}
-
-.stats {
-  display: flex;
-  gap: 30px;
-  border-top: 1px solid var(--slate-100);
-  padding-top: 16px;
-}
-.stats strong {
-  display: block;
-  font-family: var(--font-heading);
-  font-weight: 800;
-  font-size: 1.35rem;
-  letter-spacing: -0.03em;
-  color: var(--gold-600);
-  font-variant-numeric: tabular-nums;
-  line-height: 1.1;
-}
-.stats span {
-  font-size: 0.7rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.09em;
-  color: var(--slate-700);
 }
 
 /* =========================================================
@@ -1870,7 +1869,7 @@ picture > source { display: none; }
   .glance-item:nth-child(2) { border-right: 0; padding-right: 0; }
   .glance-item:nth-child(3) { padding-left: 0; }
   .badges-grid { grid-template-columns: repeat(3, 1fr); }
-  .work-card.is-featured .work-card-cover { width: 46%; }
+  .work-card.is-featured { aspect-ratio: 16 / 8; }
 }
 
 @media (max-width: 900px) {
@@ -1899,8 +1898,7 @@ picture > source { display: none; }
   .work-grid, .built-grid, .why-grid, .story-flow, .values-inline {
     grid-template-columns: repeat(2, 1fr);
   }
-  .work-card.is-featured { flex-direction: column; grid-column: 1 / -1; }
-  .work-card.is-featured .work-card-cover { width: 100%; aspect-ratio: 16 / 9; }
+  .work-card.is-featured { grid-column: 1 / -1; aspect-ratio: 4 / 5; }
 
   .values-inline .value-card { padding: 0 22px; }
   .story-flow > :last-child:nth-child(odd) { grid-column: 1 / -1; }
