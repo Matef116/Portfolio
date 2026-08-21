@@ -1341,11 +1341,10 @@ picture > source { display: none; }
 .slider-track .logo-slot img {
   max-height: 100%; max-width: 100%; width: auto; height: auto;
   object-fit: contain;
-  filter: grayscale(100%);
-  opacity: 0.55;
-  transition: filter var(--transition), opacity var(--transition);
+  opacity: 0.88;
+  transition: opacity var(--transition);
 }
-.slider-track .logo-slot img:hover { filter: grayscale(0%); opacity: 1; }
+.slider-track .logo-slot img:hover { opacity: 1; }
 
 .slider-note { margin: 26px auto 0; text-align: center; }
 
