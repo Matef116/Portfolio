@@ -484,7 +484,16 @@ img.photo-immersed {
   min-height: min(76vh, 720px);
 }
 
-.hero-text { padding-bottom: clamp(56px, 7vw, 96px); }
+/* hero-inner bottom-aligns both columns so the tall photo sits flush with
+   the section's bottom edge -- but that also drags the much shorter text
+   column down to match, opening a large empty gap above the name/title
+   that padding-top alone can't fix (that gap lives *inside* this grid
+   row, below the padding, not above it). Top-align the text column only;
+   the photo keeps its bottom alignment. */
+.hero-text {
+  align-self: start;
+  padding-bottom: clamp(56px, 7vw, 96px);
+}
 
 .hero h1 { color: var(--white); margin-bottom: 22px; }
 .hero h1 em {
