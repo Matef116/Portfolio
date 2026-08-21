@@ -194,6 +194,14 @@ h2.center { max-width: 700px; }
 
 section { padding: clamp(72px, 9vw, 132px) 0; position: relative; }
 
+/* The first section on every non-homepage page inherited the same
+   72-132px top padding used for spacing between sections further down
+   the page -- stacked under the ~76px sticky header, that read as a
+   large empty gap before any content appeared. Cut to a small gap
+   instead, same reasoning as .hero above. Only top padding changes;
+   bottom padding (section rhythm) is untouched. */
+#work, #about, #project-detail { padding-top: clamp(28px, 3vw, 48px); }
+
 /* =========================================================
    Tonal bands — the rhythm system.
    Never two adjacent bands of the same tone.
@@ -443,7 +451,10 @@ img.photo-immersed {
    ========================================================= */
 .hero {
   background: var(--navy-900);
-  padding-top: clamp(64px, 7vw, 104px);
+  /* small gap under the sticky header (~76px tall), not a full section's
+     worth of top padding -- this is the first thing on the page, it
+     shouldn't need the same breathing room as a section transition. */
+  padding-top: clamp(28px, 3vw, 48px);
   padding-bottom: 0;
   overflow: hidden;
 }
