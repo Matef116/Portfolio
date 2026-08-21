@@ -177,10 +177,16 @@ p { color: var(--slate-600); }
 .center { text-align: center; margin-left: auto; margin-right: auto; }
 h2.center { max-width: 700px; }
 
-/* Note: no longer italic — italic was doing a label's job */
+/* Note: no longer italic — italic was doing a label's job.
+   Color is slate-700, not slate-500: slate-500 on the light/slate band
+   backgrounds this renders on measures ~4.5:1, right at the WCAG AA
+   floor with no margin -- exactly the "small gray text that's hard to
+   read" pattern this whole gray-text sweep fixes. slate-700 measures
+   ~9.6:1, a strong AAA-level pass. Same reasoning applies to every
+   other slate-400/slate-500 instance changed to slate-700 below. */
 .section-note {
   font-size: 0.92rem;
-  color: var(--slate-500);
+  color: var(--slate-700);
   margin-bottom: 2rem;
   max-width: 560px;
   line-height: 1.65;
@@ -830,7 +836,7 @@ picture > source { display: none; }
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.11em;
-  color: var(--slate-400);
+  color: var(--slate-700);
   margin-bottom: 10px;
 }
 .work-card .stats { margin-top: auto; }
@@ -882,7 +888,7 @@ picture > source { display: none; }
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.09em;
-  color: var(--slate-400);
+  color: var(--slate-700);
 }
 
 /* =========================================================
@@ -1078,7 +1084,7 @@ picture > source { display: none; }
   font-weight: 600;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--slate-400);
+  color: var(--slate-700);
   margin-bottom: 4px;
 }
 .domain-tile {
@@ -1167,7 +1173,7 @@ picture > source { display: none; }
 .badge-card .badge-issuer {
   font-size: 0.68rem;
   font-weight: 600;
-  color: var(--slate-400);
+  color: var(--slate-700);
   text-transform: uppercase;
   letter-spacing: 0.1em;
 }
@@ -1183,7 +1189,7 @@ picture > source { display: none; }
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.2em;
-  color: var(--slate-400);
+  color: var(--slate-700);
   margin-bottom: 14px;
 }
 
@@ -1390,7 +1396,7 @@ picture > source { display: none; }
 .band-light .t-linkedin-badge, .band-slate .t-linkedin-badge { border-color: var(--white); }
 .band-light .t-name, .band-slate .t-name { color: var(--navy-900); }
 .band-light .t-degree, .band-slate .t-degree,
-.band-light .t-role, .band-slate .t-role { color: var(--slate-500); }
+.band-light .t-role, .band-slate .t-role { color: var(--slate-700); }
 .band-light .t-relationship, .band-slate .t-relationship { color: var(--gold-600); }
 .band-light .t-quote, .band-slate .t-quote { color: var(--slate-600); }
 
@@ -1471,7 +1477,7 @@ picture > source { display: none; }
   letter-spacing: 0.14em;
   font-size: 0.64rem;
   font-weight: 600;
-  color: var(--slate-400);
+  color: var(--slate-700);
 }
 .meta-item strong {
   font-family: var(--font-heading);
@@ -1632,7 +1638,11 @@ picture > source { display: none; }
 .footer-gradient-bar { height: 3px; background: var(--brand-gradient); }
 
 .footer-bottom { padding: 20px 28px; text-align: center; }
-.footer-bottom p { font-size: 0.76rem; color: var(--slate-500); }
+/* navy-100, not slate-500: slate-500 on the footer's navy-900 background
+   measures ~3.9:1, below WCAG AA. navy-100 is the color the rest of the
+   site already uses for body text on dark bands (.band-deep p), so this
+   matches instead of introducing a new gray-on-dark value. */
+.footer-bottom p { font-size: 0.76rem; color: var(--navy-100); }
 
 /* =========================================================
    Motion
