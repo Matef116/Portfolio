@@ -915,6 +915,7 @@ picture > source { display: none; }
 .work-card p { font-size: 0.9rem; margin-bottom: 0; color: var(--slate-600); }
 
 .work-card-cover, .work-card-cover-ph {
+  position: relative;
   width: 100%;
   aspect-ratio: 16 / 10;
   flex-shrink: 0;
@@ -932,6 +933,26 @@ picture > source { display: none; }
 .work-card-cover-ph .sail-mark { width: 40px; height: 40px; }
 .work-card-cover-ph .sail-fill { fill: var(--navy-900); fill-opacity: 0.06; stroke: var(--navy-900); stroke-width: 2.5; }
 .work-card-cover-ph .sail-mast { fill: none; stroke: var(--gold-500); stroke-width: 2; stroke-linecap: round; }
+
+/* Country flag badge, sat over the top-right corner of the cover photo. */
+.work-flags {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1;
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: var(--radius-sm);
+  box-shadow: 0 2px 8px rgba(5, 12, 24, 0.25);
+}
+.work-flags img {
+  width: 20px; height: 14px;
+  object-fit: cover;
+  border-radius: 2px;
+  display: block;
+}
 
 .work-card-body { padding: 22px; display: flex; flex-direction: column; flex: 1; }
 /* clamp the description to a fixed number of lines so cards with a
@@ -1577,6 +1598,32 @@ picture > source { display: none; }
   to { transform: translateX(-50%); }
 }
 
+/* Static client-logo grid (projects.html) -- every logo shown at once,
+   not the auto-scrolling marquee used on the homepage. */
+.clients-band { padding: clamp(56px, 6vw, 84px) 0; }
+.clients-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+  margin-top: 28px;
+}
+.client-tile {
+  height: 90px;
+  background: var(--white);
+  border: 1px solid var(--slate-100);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  transition: border-color var(--transition), transform var(--transition);
+}
+.client-tile:hover { border-color: var(--gold-300); transform: translateY(-3px); }
+.client-tile img {
+  max-height: 100%; max-width: 100%; width: auto; height: auto;
+  object-fit: contain;
+}
+
 /* =========================================================
    PROJECT DETAIL PAGES
    ========================================================= */
@@ -1589,10 +1636,33 @@ picture > source { display: none; }
   font-size: clamp(1.05rem, 1.6vw, 1.3rem);
   color: var(--slate-600);
   max-width: 60ch;
-  margin: 0 0 44px;
+  margin: 0 0 28px;
   line-height: 1.55;
   padding-left: 20px;
   border-left: 2px solid var(--gold-400);
+}
+
+/* Client logo, shown next to a small "Delivered for" label when a real
+   client/partner logo asset exists (internal engagements have none). */
+.project-client {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 44px;
+}
+.project-client span {
+  text-transform: uppercase;
+  letter-spacing: 0.13em;
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--slate-500);
+}
+.project-client img {
+  max-height: 40px;
+  max-width: 140px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
 }
 
 .project-meta-grid {
@@ -1607,7 +1677,18 @@ picture > source { display: none; }
   max-width: 900px;
 }
 
-.meta-item { display: flex; flex-direction: column; gap: 7px; }
+.meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  padding-left: 12px;
+  border-left: 2px solid var(--slate-100);
+  transition: border-color var(--transition), transform var(--transition);
+}
+.meta-item:hover {
+  border-left-color: var(--gold-400);
+  transform: translateX(3px);
+}
 .meta-item span {
   text-transform: uppercase;
   letter-spacing: 0.14em;
@@ -1750,6 +1831,41 @@ picture > source { display: none; }
 }
 .lightbox-close:hover { color: var(--gold-300); }
 
+.lightbox-nav {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.08);
+  border: none;
+  color: var(--white);
+  font-size: 1.8rem;
+  line-height: 1;
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 1001;
+  transition: background var(--transition), color var(--transition);
+}
+.lightbox-nav:hover { background: rgba(255, 255, 255, 0.16); color: var(--gold-300); }
+.lightbox-prev { left: 16px; }
+.lightbox-next { right: 16px; }
+.lightbox-counter {
+  position: fixed;
+  bottom: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--navy-100);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  z-index: 1001;
+}
+@media (max-width: 720px) {
+  .lightbox-nav { width: 44px; height: 44px; font-size: 1.5rem; }
+  .lightbox-prev { left: 6px; }
+  .lightbox-next { right: 6px; }
+}
+
 /* =========================================================
    Footer
    ========================================================= */
@@ -1875,6 +1991,7 @@ picture > source { display: none; }
   .glance-item:nth-child(2) { border-right: 0; padding-right: 0; }
   .glance-item:nth-child(3) { padding-left: 0; }
   .badges-grid { grid-template-columns: repeat(3, 1fr); }
+  .clients-grid { grid-template-columns: repeat(4, 1fr); }
 }
 
 @media (max-width: 900px) {
@@ -1917,11 +2034,13 @@ picture > source { display: none; }
   .info-row { grid-template-columns: 210px 1fr; gap: 22px; }
   .badges-grid { grid-template-columns: repeat(2, 1fr); }
   .photo-grid { grid-template-columns: repeat(2, 1fr); }
+  .clients-grid { grid-template-columns: repeat(3, 1fr); }
 }
 
 @media (max-width: 720px) {
   .container { padding: 0 20px; }
 
+  .clients-grid { grid-template-columns: repeat(2, 1fr); }
   .t-card { width: 300px; padding: 22px 22px 20px; }
   .t-track { animation-duration: 34s; gap: 16px; }
 

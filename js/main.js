@@ -74,7 +74,8 @@ if (heroSection && heroPortrait && !prefersReducedMotion && window.matchMedia('(
 const revealTargets = document.querySelectorAll(
   '.card, .step, .work-card, .glance-item, .value-card, .why-card, .built-card, ' +
   '.tool-tile, .badge-card, .domain-tile, .story-stage, .info-row, ' +
-  '.photo-grid .photo-item, .section-head, .sail-story-inner, .why-tagline'
+  '.photo-grid .photo-item, .section-head, .sail-story-inner, .why-tagline, ' +
+  '.meta-item, .mandate-list li, .execution-list li, .results-list li'
 );
 
 const staggerCounts = new Map();
@@ -160,20 +161,39 @@ if (!prefersReducedMotion) {
   counterContainers.forEach(el => counterObserver.observe(el));
 }
 
-/* ---------- Photo lightbox ---------- */
+/* ---------- Photo lightbox, with prev/next through the same gallery ---------- */
 const galleryImages = document.querySelectorAll('.photo-grid .photo-item');
 if (galleryImages.length) {
   const overlay = document.createElement('div');
   overlay.className = 'lightbox-overlay';
-  overlay.innerHTML = '<button class="lightbox-close" aria-label="Close">&times;</button><img class="lightbox-image" alt="">';
+  overlay.innerHTML = `
+    <button class="lightbox-close" aria-label="Close">&times;</button>
+    <button class="lightbox-nav lightbox-prev" aria-label="Previous photo">&larr;</button>
+    <img class="lightbox-image" alt="">
+    <button class="lightbox-nav lightbox-next" aria-label="Next photo">&rarr;</button>
+    <div class="lightbox-counter"></div>`;
   document.body.appendChild(overlay);
 
   const lightboxImg = overlay.querySelector('.lightbox-image');
   const closeBtn = overlay.querySelector('.lightbox-close');
+  const prevBtn = overlay.querySelector('.lightbox-prev');
+  const nextBtn = overlay.querySelector('.lightbox-next');
+  const counter = overlay.querySelector('.lightbox-counter');
+  const gallery = Array.from(galleryImages);
+  let currentIndex = 0;
 
-  const openLightbox = (src, alt) => {
-    lightboxImg.src = src;
-    lightboxImg.alt = alt || '';
+  // data-full points at a full-resolution WebP. The grid <img> now carries a
+  // display-sized source (~882px) for page-load speed, which would look soft
+  // blown up to full screen, so the lightbox opens the large version instead.
+  const showAt = index => {
+    currentIndex = (index + gallery.length) % gallery.length;
+    const img = gallery[currentIndex];
+    lightboxImg.src = img.dataset.full || img.src;
+    lightboxImg.alt = img.alt || '';
+    counter.textContent = `${currentIndex + 1} / ${gallery.length}`;
+  };
+  const openLightbox = index => {
+    showAt(index);
     overlay.classList.add('is-open');
     document.body.style.overflow = 'hidden';
   };
@@ -182,14 +202,24 @@ if (galleryImages.length) {
     document.body.style.overflow = '';
   };
 
-  // data-full points at a full-resolution WebP. The grid <img> now carries a
-  // display-sized source (~882px) for page-load speed, which would look soft
-  // blown up to full screen, so the lightbox opens the large version instead.
-  galleryImages.forEach(img => img.addEventListener(
-    'click', () => openLightbox(img.dataset.full || img.src, img.alt)));
+  gallery.forEach((img, index) => img.addEventListener('click', () => openLightbox(index)));
   closeBtn.addEventListener('click', closeLightbox);
+  prevBtn.addEventListener('click', () => showAt(currentIndex - 1));
+  nextBtn.addEventListener('click', () => showAt(currentIndex + 1));
   overlay.addEventListener('click', e => { if (e.target === overlay) closeLightbox(); });
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+  document.addEventListener('keydown', e => {
+    if (!overlay.classList.contains('is-open')) return;
+    if (e.key === 'Escape') closeLightbox();
+    else if (e.key === 'ArrowLeft') showAt(currentIndex - 1);
+    else if (e.key === 'ArrowRight') showAt(currentIndex + 1);
+  });
+
+  // single-photo galleries don't need prev/next controls
+  if (gallery.length < 2) {
+    prevBtn.style.display = 'none';
+    nextBtn.style.display = 'none';
+    counter.style.display = 'none';
+  }
 }
 
 /* ---------- Section rail scrollspy (About page) ---------- */
