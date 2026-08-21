@@ -924,12 +924,15 @@ picture > source { display: none; }
 .about-media { display: flex; justify-content: center; }
 .about-media img.photo-immersed { max-height: 520px; }
 
-/* Story flow — three stages, now on a spine */
+/* Story flow — three stages, now on a spine.
+   margin-top brings this rule up to sit level with the bottom edge of the
+   about-photo next to it, instead of the section's default large spacing
+   (which left a big gap between the photo and the line below it). */
 .story-flow {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: clamp(28px, 3.5vw, 52px);
-  margin-top: clamp(56px, 7vw, 96px);
+  margin-top: clamp(24px, 3vw, 40px);
   padding-top: 44px;
   border-top: 1px solid var(--slate-200);
 }
@@ -950,16 +953,16 @@ picture > source { display: none; }
 .story-stage h3 { font-size: clamp(1.15rem, 1.6vw, 1.4rem); margin-bottom: 14px; }
 .story-stage p { font-size: 0.93rem; }
 
-/* Values folded inline into the story — no longer its own section */
+/* Values folded inline into the story — no longer its own section.
+   No border-top/rule here deliberately: the story-flow rule above already
+   marks the transition into this part of the page, so a second divider
+   immediately above the values row was a redundant, cluttering line. */
 .values-inline {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 0;
   margin-top: clamp(48px, 6vw, 76px);
-  border-top: 1px solid var(--slate-200);
-  padding-top: 34px;
 }
-.band-deep .values-inline { border-top-color: rgba(255,255,255,0.14); }
 .value-card {
   padding: 0 32px;
   border-right: 1px solid var(--slate-200);
@@ -970,14 +973,23 @@ picture > source { display: none; }
 .value-card:last-child { border-right: 0; padding-right: 0; }
 .band-deep .value-card { border-right-color: rgba(255,255,255,0.12); }
 
+.value-icon {
+  display: block;
+  width: 40px;
+  height: 40px;
+  margin-bottom: 16px;
+}
+
 /* gold-700, not gold-500: same WCAG contrast fix as .eyebrow above --
-   this only ever appears on band-light sections. */
-.value-number {
+   this only ever appears on band-light sections. The value's actual name
+   (Integrity/Clarity/Accountability), promoted above the one-line
+   restatement below it rather than buried in a "01 · " numbered label. */
+.value-name {
   display: block;
   font-family: var(--font-heading);
   font-weight: 800;
-  font-size: 0.78rem;
-  letter-spacing: 0.12em;
+  font-size: 1rem;
+  letter-spacing: -0.01em;
   color: var(--gold-700);
   margin-bottom: 10px;
 }
