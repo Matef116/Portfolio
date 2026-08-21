@@ -117,8 +117,17 @@ h1 {
   letter-spacing: -0.03em;
 }
 
+/* Max lowered from 3rem: at the section-head's now-full container width
+   (1124px at common desktop widths), the two longest section headings
+   ("Numbers from delivered programmes, not projections",
+   "A named standard for every engagement, not instinct.") still measured
+   148-166px wider than available even after removing the layout squeeze
+   -- genuinely too much text for 48px Sora ExtraBold at this container
+   width, not a layout bug. 2.65rem (42.4px) is the smallest reduction
+   that fits both with a few px of margin, verified by measuring each
+   heading's actual unwrapped text width against its available width. */
 h2 {
-  font-size: clamp(1.9rem, 4vw, 3rem);
+  font-size: clamp(1.9rem, 3.3vw, 2.58rem);
   font-weight: 800;
   letter-spacing: -0.025em;
   margin-bottom: 1rem;
@@ -273,15 +282,16 @@ section { padding: clamp(72px, 9vw, 132px) 0; position: relative; scroll-margin-
 /* =========================================================
    Section heads — asymmetric by default, not centered stacks
    ========================================================= */
-.section-head {
-  display: grid;
-  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-  gap: 28px 56px;
-  align-items: end;
-  margin-bottom: clamp(40px, 5vw, 68px);
-}
+/* Stacked, not a 2-column grid: h2 previously shared a 7fr/5fr row with
+   .section-note, which squeezed section headings into ~58% of the
+   container width even when there was no note to share space with --
+   the reason short, punchy headings like "Numbers from delivered
+   programmes, not projections" were wrapping to 2-3 lines instead of
+   sitting on one. Giving the heading the full container width lets it
+   run as long as it actually needs to before wrapping. */
+.section-head { margin-bottom: clamp(40px, 5vw, 68px); }
 .section-head h2 { margin-bottom: 0; }
-.section-head .section-note { margin-bottom: 0; padding-bottom: 6px; }
+.section-head .section-note { margin-top: 18px; margin-bottom: 0; }
 
 /* =========================================================
    Buttons
@@ -1864,8 +1874,6 @@ picture > source { display: none; }
 }
 
 @media (max-width: 900px) {
-  .section-head { grid-template-columns: 1fr; align-items: start; gap: 16px; }
-
   .hero { padding-bottom: 0; }
   .hero-inner { grid-template-columns: 1fr; gap: 0; min-height: 0; }
   .hero-text { padding-bottom: 40px; order: 1; }
