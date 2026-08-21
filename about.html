@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&family=Exo+2:wght@400;600&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="images/mohamed-atef-about.webp" type="image/webp">
-<link rel="stylesheet" href="css/style.css?v=27">
+<link rel="stylesheet" href="css/style.css?v=29">
 </head>
 <body>
 
@@ -41,6 +41,19 @@
     </button>
   </div>
 </header>
+
+<!-- ===== SECTION RAIL — jump nav for this page's 9 sections, wide screens only ===== -->
+<nav class="toc-rail" aria-label="About page sections">
+  <a href="#about" class="toc-link"><span class="toc-dot"></span><span class="toc-tooltip">About Me</span></a>
+  <a href="#built" class="toc-link"><span class="toc-dot"></span><span class="toc-tooltip">What I Have Built</span></a>
+  <a href="#why-keep" class="toc-link"><span class="toc-dot"></span><span class="toc-tooltip">Why Clients Keep Me</span></a>
+  <a href="#badges" class="toc-link"><span class="toc-dot"></span><span class="toc-tooltip">Certifications &amp; Badges</span></a>
+  <a href="#tools" class="toc-link"><span class="toc-dot"></span><span class="toc-tooltip">Tools &amp; Technology</span></a>
+  <a href="#how-i-deliver" class="toc-link"><span class="toc-dot"></span><span class="toc-tooltip">How I Deliver</span></a>
+  <a href="#brand-story" class="toc-link"><span class="toc-dot"></span><span class="toc-tooltip">The Billowing Sail</span></a>
+  <a href="#testimonials" class="toc-link"><span class="toc-dot"></span><span class="toc-tooltip">Testimonials</span></a>
+  <a href="#contact" class="toc-link"><span class="toc-dot"></span><span class="toc-tooltip">Contact</span></a>
+</nav>
 
 <main>
 
@@ -329,7 +342,7 @@
   </section>
 
   <!-- ===== 7. THE BILLOWING SAIL ===== -->
-  <section class="sail-story band-navy">
+  <section class="sail-story band-navy" id="brand-story">
     <div class="container sail-story-inner">
       <svg class="sail-story-mark" viewBox="0 0 100 100" aria-hidden="true">
         <path d="M30 85 C10 55 15 25 40 12 C55 5 70 15 75 25 C80 35 65 50 45 55 C35 58 30 70 30 85 Z" class="sail-fill"/>
@@ -546,6 +559,6 @@
   </div>
 </footer>
 
-<script src="js/main.js?v=11"></script>
+<script src="js/main.js?v=12"></script>
 </body>
 </html>

@@ -191,3 +191,29 @@ if (galleryImages.length) {
   overlay.addEventListener('click', e => { if (e.target === overlay) closeLightbox(); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
 }
+
+/* ---------- Section rail scrollspy (About page) ---------- */
+const tocLinks = document.querySelectorAll('.toc-link');
+if (tocLinks.length) {
+  const tocMap = new Map();
+  tocLinks.forEach(link => {
+    const target = document.getElementById(link.getAttribute('href').slice(1));
+    if (target) tocMap.set(target, link);
+  });
+
+  // A thin band at the vertical center of the viewport, rather than any
+  // intersection at all -- otherwise two adjacent short sections can both
+  // register as "intersecting" near a scroll boundary and the highlight
+  // flickers between them.
+  const tocObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const link = tocMap.get(entry.target);
+      if (!link) return;
+      tocLinks.forEach(l => l.classList.remove('is-active'));
+      link.classList.add('is-active');
+    });
+  }, { rootMargin: '-45% 0px -45% 0px', threshold: 0 });
+
+  tocMap.forEach((link, target) => tocObserver.observe(target));
+}

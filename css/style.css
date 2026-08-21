@@ -192,7 +192,10 @@ h2.center { max-width: 700px; }
   line-height: 1.65;
 }
 
-section { padding: clamp(72px, 9vw, 132px) 0; position: relative; }
+/* scroll-margin-top keeps an anchor-jumped-to section (e.g. #services links
+   from other pages, or the About page's section rail below) from landing
+   partially hidden under the ~76px sticky header. */
+section { padding: clamp(72px, 9vw, 132px) 0; position: relative; scroll-margin-top: 92px; }
 
 /* The first section on every non-homepage page inherited the same
    72-132px top padding used for spacing between sections further down
@@ -445,6 +448,92 @@ img.photo-immersed {
 .nav-toggle.is-active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
 .nav-toggle.is-active span:nth-child(2) { opacity: 0; }
 .nav-toggle.is-active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* =========================================================
+   SECTION RAIL — About page jump nav.
+   Hidden below 1360px: the page container maxes out at 1180px, so
+   below that width there isn't reliable margin outside it for a fixed
+   rail without risking overlap with page content. Above it, it floats
+   in the left margin. Its own navy glass pill (matching the header)
+   is deliberate: the page alternates light/dark bands as you scroll,
+   and a rail without its own background would lose contrast against
+   whichever band is currently behind it.
+   ========================================================= */
+.toc-rail {
+  display: none;
+  position: fixed;
+  left: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 60;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  background: rgba(10, 22, 40, 0.55);
+  backdrop-filter: blur(10px) saturate(140%);
+  -webkit-backdrop-filter: blur(10px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 999px;
+  padding: 16px 0;
+}
+@media (min-width: 1360px) {
+  .toc-rail { display: flex; }
+}
+
+.toc-link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* full WCAG 2.5.5 44x44px tap target, not just the visible dot */
+  width: 44px;
+  height: 44px;
+}
+.toc-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.32);
+  border: 1.5px solid rgba(255, 255, 255, 0.5);
+  transition: background var(--transition), border-color var(--transition), transform 220ms var(--ease-out);
+}
+.toc-link:hover .toc-dot, .toc-link:focus-visible .toc-dot {
+  border-color: var(--gold-300);
+  background: var(--gold-300);
+}
+.toc-link.is-active .toc-dot {
+  background: var(--gold-400);
+  border-color: var(--gold-400);
+  transform: scale(1.35);
+  box-shadow: 0 0 0 4px rgba(240, 190, 77, 0.18);
+}
+
+.toc-tooltip {
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  margin-left: 14px;
+  transform: translateY(-50%) translateX(-6px);
+  background: rgba(10, 22, 40, 0.94);
+  backdrop-filter: blur(8px);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 600;
+  white-space: nowrap;
+  padding: 7px 13px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 200ms ease, transform 200ms ease;
+}
+.toc-link:hover .toc-tooltip, .toc-link:focus-visible .toc-tooltip {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+}
+.toc-link:focus-visible { outline: none; }
+.toc-link:focus-visible .toc-dot { box-shadow: 0 0 0 3px rgba(240, 190, 77, 0.35); }
 
 /* =========================================================
    HERO — the one orchestrated moment
