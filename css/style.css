@@ -140,21 +140,24 @@ p { color: var(--slate-600); }
   padding: 0 28px;
 }
 
-/* Labels / eyebrows — the brand's specified label device.
+/* Labels / eyebrows — the brand's specified label device, and the line
+   carrying the hero's name/title directly under the H1.
    Color is gold-700, not gold-500: gold-500 on the light/slate band
    backgrounds used throughout the site (about.html, projects.html, every
    project detail page) measures ~3:1 contrast, below the 4.5:1 WCAG AA
    floor for this text size, so it read as washed-out / barely visible.
    gold-700 measures ~6.3-6.7:1 against those same backgrounds, a solid
    pass with margin, while still reading as the brand's gold accent.
-   Font-size and weight bumped slightly for legibility at this small a
-   size regardless of background. */
+   Size raised again (0.78rem -> 0.95rem) and tracking tightened to
+   match: against a 41.6-72px H1 (h1 below), 12.5px read as fine print
+   even at full contrast -- 15.2px holds its own as a label without
+   competing with the H1 for attention. */
 .eyebrow {
   display: block;
   font-family: var(--font-body);
   text-transform: uppercase;
-  letter-spacing: 0.18em;
-  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  font-size: 0.95rem;
   font-weight: 700;
   color: var(--gold-700);
   margin-bottom: 1rem;
@@ -162,8 +165,8 @@ p { color: var(--slate-600); }
 .eyebrow::before {
   content: "";
   display: inline-block;
-  width: 22px;
-  height: 1px;
+  width: 26px;
+  height: 1.5px;
   background: var(--gold-700);
   vertical-align: middle;
   margin-right: 12px;
@@ -752,13 +755,13 @@ picture > source { display: none; }
   display: inline-block;
   width: fit-content;
   font-family: var(--font-body);
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.12em;
   color: var(--gold-700);
   background: var(--gold-50);
-  padding: 5px 11px;
+  padding: 6px 12px;
   border-radius: var(--radius-sm);
   margin-bottom: 12px;
 }
@@ -852,8 +855,8 @@ picture > source { display: none; }
   display: block;
   font-family: var(--font-body);
   font-weight: 700;
-  font-size: 0.74rem;
-  letter-spacing: 0.16em;
+  font-size: 0.82rem;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--gold-700);
   margin-bottom: 18px;
