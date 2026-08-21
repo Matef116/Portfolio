@@ -679,7 +679,54 @@ picture > source { display: none; }
   opacity: 0.55;
 }
 
-.step { position: relative; }
+.step { position: relative; transition: transform 280ms var(--ease-out); }
+
+/* Hover state: the step's own segment of the spine lights up gold behind
+   it (reinforcing *which* standard is under the cursor, not just that
+   something is hoverable), the number inverts from outline to filled,
+   and the card lifts slightly -- same vocabulary as .why-card/.badge-card
+   elsewhere (translateY lift, gold border/glow, soft white wash), applied
+   to a numbered-timeline layout instead of a plain card. */
+.step::before {
+  content: "";
+  position: absolute;
+  /* aligns with the spine's own position: .step-num sits at top:-46px with
+     a 30px diameter, so its vertical center -- and the spine line running
+     through it -- is at -46px + 15px = -31px relative to .step, matching
+     .process-steps::before's top:15px (measured from .process-steps,
+     which has padding-top:46px). Get this wrong and the "spine" segment
+     lands at .step's own top edge instead, drawing a line through the h3. */
+  top: -31px; left: 0; right: 0;
+  height: 2px;
+  background: var(--gold-300);
+  border-radius: 2px;
+  opacity: 0;
+  transform: scaleX(0.6);
+  transform-origin: center;
+  transition: opacity var(--transition), transform var(--transition);
+  pointer-events: none;
+}
+.step::after {
+  content: "";
+  position: absolute;
+  inset: -14px -14px -18px;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: var(--radius-md);
+  opacity: 0;
+  transition: opacity var(--transition);
+  z-index: -1;
+  pointer-events: none;
+}
+.step:hover {
+  transform: translateY(-4px);
+}
+.step:hover::before {
+  opacity: 1;
+  transform: scaleX(1);
+  box-shadow: 0 0 14px 1px rgba(240, 190, 77, 0.55);
+}
+.step:hover::after { opacity: 1; }
+
 .step-num {
   position: absolute;
   top: -46px; left: 0;
@@ -692,9 +739,22 @@ picture > source { display: none; }
   font-family: var(--font-heading);
   font-weight: 800;
   font-size: 0.8rem;
+  transition: background var(--transition), border-color var(--transition),
+              color var(--transition), transform 280ms var(--ease-out),
+              box-shadow var(--transition);
 }
-.step h3 { color: var(--white); font-size: 1.06rem; margin-top: 4px; }
-.step p { font-size: 0.9rem; color: var(--navy-200); }
+.step:hover .step-num {
+  background: var(--gold-400);
+  border-color: var(--gold-300);
+  color: var(--navy-900);
+  transform: scale(1.15);
+  box-shadow: 0 0 0 6px rgba(240, 190, 77, 0.15);
+}
+
+.step h3 { color: var(--white); font-size: 1.06rem; margin-top: 4px; transition: color var(--transition); }
+.step p { font-size: 0.9rem; color: var(--navy-200); transition: color var(--transition); }
+.step:hover h3 { color: var(--gold-300); }
+.step:hover p { color: var(--navy-100); }
 
 /* =========================================================
    WORK — featured hierarchy, not four equal cards
@@ -1694,6 +1754,7 @@ picture > source { display: none; }
 
   .process-steps { grid-template-columns: repeat(2, 1fr); gap: 46px 28px; padding-top: 44px; }
   .process-steps::before { display: none; }
+  .step::before { display: none; }
   .step-num { position: static; margin-bottom: 14px; }
 
   .work-grid, .built-grid, .why-grid, .story-flow, .values-inline {
