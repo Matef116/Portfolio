@@ -75,7 +75,8 @@ const revealTargets = document.querySelectorAll(
   '.card, .step, .work-card, .glance-item, .value-card, .why-card, .built-card, ' +
   '.tool-tile, .badge-card, .domain-tile, .story-stage, .info-row, ' +
   '.photo-grid .photo-item, .section-head, .sail-story-inner, .why-tagline, ' +
-  '.meta-item, .mandate-list li, .execution-list li, .results-list li'
+  '.meta-item, .mandate-list li, .execution-list li, .results-list li, ' +
+  '.service-intro, .proof-card'
 );
 
 const staggerCounts = new Map();
