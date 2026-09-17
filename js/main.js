@@ -76,7 +76,7 @@ const revealTargets = document.querySelectorAll(
   '.tool-tile, .badge-card, .domain-card, .story-stage, .info-row, ' +
   '.photo-grid .photo-item, .section-head, .sail-story-inner, .why-tagline, ' +
   '.meta-item, .mandate-list li, .execution-list li, .results-list li, ' +
-  '.service-intro, .proof-card, .pagination-link'
+  '.offer-card, .pagination-link'
 );
 
 const staggerCounts = new Map();
