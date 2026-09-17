@@ -785,101 +785,145 @@ picture > source { display: none; }
 .card p { font-size: 0.95rem; margin: 0; }
 
 /* =========================================================
-   PROCESS SPINE — the methodology moat, on navy
+   DELIVERY MAP — a zigzag path down the "How I Deliver"
+   section. A soft gold light travels the path continuously;
+   each node brightens and reveals its description on hover
+   or keyboard focus, rather than showing all the text at once.
    ========================================================= */
-.process-steps {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 32px;
+.delivery-map {
   position: relative;
-  padding-top: 46px;
-}
-/* the spine itself */
-.process-steps::before {
-  content: "";
-  position: absolute;
-  top: 15px; left: 0; right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, var(--navy-500), var(--gold-500) 72%, var(--gold-300));
-  opacity: 0.55;
+  max-width: 760px;
+  margin: 56px auto 0;
 }
 
-.step { position: relative; transition: transform 280ms var(--ease-out); }
-
-/* Hover state: the step's own segment of the spine lights up gold behind
-   it (reinforcing *which* standard is under the cursor, not just that
-   something is hoverable), the number inverts from outline to filled,
-   and the card lifts slightly -- same vocabulary as .why-card/.badge-card
-   elsewhere (translateY lift, gold border/glow, soft white wash), applied
-   to a numbered-timeline layout instead of a plain card. */
-.step::before {
-  content: "";
+.map-path {
   position: absolute;
-  /* aligns with the spine's own position: .step-num sits at top:-46px with
-     a 30px diameter, so its vertical center -- and the spine line running
-     through it -- is at -46px + 15px = -31px relative to .step, matching
-     .process-steps::before's top:15px (measured from .process-steps,
-     which has padding-top:46px). Get this wrong and the "spine" segment
-     lands at .step's own top edge instead, drawing a line through the h3. */
-  top: -31px; left: 0; right: 0;
-  height: 2px;
-  background: var(--gold-300);
+  left: 50%;
+  top: 4px;
+  bottom: 4px;
+  width: 3px;
+  transform: translateX(-50%);
+  background: rgba(240, 190, 77, 0.18);
   border-radius: 2px;
-  opacity: 0;
-  transform: scaleX(0.6);
-  transform-origin: center;
-  transition: opacity var(--transition), transform var(--transition);
-  pointer-events: none;
+  overflow: hidden;
 }
-.step::after {
+.map-path::after {
   content: "";
   position: absolute;
-  inset: -14px -14px -18px;
-  background: rgba(255, 255, 255, 0.04);
-  border-radius: var(--radius-md);
-  opacity: 0;
-  transition: opacity var(--transition);
-  z-index: -1;
-  pointer-events: none;
+  left: 0; right: 0;
+  top: -55%;
+  height: 55%;
+  background: linear-gradient(180deg, transparent, var(--gold-300) 55%, transparent);
+  animation: map-light-travel 3.4s linear infinite;
 }
-.step:hover {
-  transform: translateY(-4px);
+@keyframes map-light-travel {
+  from { top: -55%; }
+  to   { top: 100%; }
 }
-.step:hover::before {
-  opacity: 1;
-  transform: scaleX(1);
-  box-shadow: 0 0 14px 1px rgba(240, 190, 77, 0.55);
-}
-.step:hover::after { opacity: 1; }
 
-.step-num {
-  position: absolute;
-  top: -46px; left: 0;
-  width: 30px; height: 30px;
+.map-step {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 64px 1fr;
+  align-items: center;
+  margin-bottom: 60px;
+  border-radius: var(--radius-md);
+}
+.map-step:last-child { margin-bottom: 0; }
+.map-step:focus { outline: none; }
+
+.map-node {
+  grid-column: 2;
+  justify-self: center;
+  position: relative;
+  z-index: 2;
+  width: 46px; height: 46px;
   border-radius: 50%;
   background: var(--navy-900);
-  border: 1px solid var(--gold-500);
+  border: 2px solid var(--gold-500);
   color: var(--gold-300);
   display: flex; align-items: center; justify-content: center;
   font-family: var(--font-heading);
   font-weight: 800;
-  font-size: 0.8rem;
+  font-size: 1.05rem;
   transition: background var(--transition), border-color var(--transition),
               color var(--transition), transform 280ms var(--ease-out),
               box-shadow var(--transition);
 }
-.step:hover .step-num {
+
+.map-card { min-width: 0; }
+.map-label {
+  color: var(--white);
+  font-size: 1.08rem;
+  font-weight: 700;
+  margin: 0;
+  transition: color var(--transition);
+}
+
+.map-step-left .map-card { grid-column: 1; text-align: right; }
+.map-step-right .map-card { grid-column: 3; text-align: left; }
+
+.map-hint {
+  min-width: 0;
+  font-size: 0.86rem;
+  line-height: 1.55;
+  color: var(--navy-100);
+  background: var(--navy-800);
+  border: 1px solid var(--gold-300);
+  border-radius: var(--radius-md);
+  padding: 16px 18px;
+  box-shadow: var(--shadow-lift);
+  text-align: left;
+  opacity: 0;
+  transform: translateY(-6px);
+  pointer-events: none;
+  transition: opacity 200ms ease, transform 200ms ease;
+}
+.map-step-left .map-hint { grid-column: 3; }
+.map-step-right .map-hint { grid-column: 1; }
+
+.map-step:hover .map-node,
+.map-step:focus .map-node,
+.map-step:focus-within .map-node {
   background: var(--gold-400);
   border-color: var(--gold-300);
   color: var(--navy-900);
-  transform: scale(1.15);
-  box-shadow: 0 0 0 6px rgba(240, 190, 77, 0.15);
+  transform: scale(1.12);
+  box-shadow: 0 0 0 8px rgba(240, 190, 77, 0.16);
+}
+.map-step:hover .map-label,
+.map-step:focus .map-label,
+.map-step:focus-within .map-label { color: var(--gold-300); }
+.map-step:hover .map-hint,
+.map-step:focus .map-hint,
+.map-step:focus-within .map-hint {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
 }
 
-.step h3 { color: var(--white); font-size: 1.06rem; margin-top: 4px; transition: color var(--transition); }
-.step p { font-size: 0.9rem; color: var(--navy-200); transition: color var(--transition); }
-.step:hover h3 { color: var(--gold-300); }
-.step:hover p { color: var(--navy-100); }
+@media (max-width: 700px) {
+  .map-path { left: 23px; transform: none; }
+  .map-step {
+    grid-template-columns: 46px 1fr;
+    grid-template-areas: "node card" ". hint";
+    row-gap: 12px;
+    column-gap: 18px;
+  }
+  .map-node { grid-area: node; justify-self: start; }
+  .map-step-left .map-card,
+  .map-step-right .map-card { grid-area: card; text-align: left; min-width: 0; }
+  .map-step-left .map-hint,
+  .map-step-right .map-hint {
+    grid-area: hint;
+    text-align: left;
+    min-width: 0;
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+    position: static;
+  }
+}
 
 /* =========================================================
    WORK — symmetric cards on a white surface. The cover photo sits in
