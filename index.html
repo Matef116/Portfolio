@@ -31,7 +31,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&family=Exo+2:wght@400;600&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="images/mohamed-atef-hero.webp" type="image/webp">
-<link rel="stylesheet" href="css/style.css?v=51">
+<link rel="stylesheet" href="css/style.css?v=52">
 </head>
 <body>
 
@@ -118,36 +118,44 @@
     </div>
   </section>
 
-  <!-- ===== HOW I DELIVER — a zigzag map, path lights the way forward ===== -->
+  <!-- ===== HOW I DELIVER — a horizontal zigzag path, all text visible ===== -->
   <section class="process band-deep">
     <div class="container">
       <h2 class="center">How I Deliver</h2>
 
       <div class="delivery-map">
-        <div class="map-path" aria-hidden="true"></div>
-
-        <div class="map-step map-step-left" tabindex="0">
-          <div class="map-card"><h3 class="map-label">I find what actually caused it</h3></div>
-          <div class="map-node">1</div>
-          <div class="map-hint">Every project that goes sideways had an early signal nobody named in time. I trace backwards through the data to the one reading that started the failure, the way I did on a plant floor, so the fix targets the real cause instead of the symptom that happened to be loudest.</div>
+        <div class="zigzag-rail">
+          <svg class="zigzag-svg" viewBox="0 0 100 40" preserveAspectRatio="none" aria-hidden="true">
+            <path class="zigzag-track" d="M10,8 L36.66,32 L63.33,8 L90,32"/>
+            <path class="zigzag-light" d="M10,8 L36.66,32 L63.33,8 L90,32"/>
+          </svg>
+          <div class="zigzag-node zigzag-node-1">1</div>
+          <div class="zigzag-node zigzag-node-2">2</div>
+          <div class="zigzag-node zigzag-node-3">3</div>
+          <div class="zigzag-node zigzag-node-4">4</div>
         </div>
 
-        <div class="map-step map-step-right" tabindex="0">
-          <div class="map-card"><h3 class="map-label">I treat the people problem as the real problem</h3></div>
-          <div class="map-node">2</div>
-          <div class="map-hint">A missed deadline is rarely a scheduling issue. It's usually a stakeholder who wasn't brought along, or a decision nobody wanted to make out loud. I handle the technical planning and the harder conversations in the same breath, because splitting them is how projects quietly die in the gap between the two.</div>
-        </div>
-
-        <div class="map-step map-step-left" tabindex="0">
-          <div class="map-card"><h3 class="map-label">The method fits the work, not the other way round</h3></div>
-          <div class="map-node">3</div>
-          <div class="map-hint">Agile, Waterfall, Hybrid, or Rolling Wave: chosen for how much your work will actually change along the way, not because it's the framework I default to. Force the wrong method onto a project and you pay for the mismatch in scope creep or in paralysis.</div>
-        </div>
-
-        <div class="map-step map-step-right" tabindex="0">
-          <div class="map-card"><h3 class="map-label">I plan for the thing that actually goes wrong</h3></div>
-          <div class="map-node">4</div>
-          <div class="map-hint">Not a risk register nobody reads. Every material risk gets scored, a real mitigation, and a fallback, so when something breaks, which it always does somewhere, the response is already decided instead of improvised under pressure. Plan B through Plan Z.</div>
+        <div class="map-cards">
+          <div class="map-card">
+            <span class="map-card-num">01</span>
+            <h3>I find what actually caused it</h3>
+            <p>Every project that goes sideways had an early signal nobody named in time. I trace backwards through the data to the one reading that started the failure, the way I did on a plant floor, so the fix targets the real cause instead of the symptom that happened to be loudest.</p>
+          </div>
+          <div class="map-card">
+            <span class="map-card-num">02</span>
+            <h3>I treat the people problem as the real problem</h3>
+            <p>A missed deadline is rarely a scheduling issue. It's usually a stakeholder who wasn't brought along, or a decision nobody wanted to make out loud. I handle the technical planning and the harder conversations in the same breath, because splitting them is how projects quietly die in the gap between the two.</p>
+          </div>
+          <div class="map-card">
+            <span class="map-card-num">03</span>
+            <h3>The method fits the work, not the other way round</h3>
+            <p>Agile, Waterfall, Hybrid, or Rolling Wave: chosen for how much your work will actually change along the way, not because it's the framework I default to. Force the wrong method onto a project and you pay for the mismatch in scope creep or in paralysis.</p>
+          </div>
+          <div class="map-card">
+            <span class="map-card-num">04</span>
+            <h3>I plan for the thing that actually goes wrong</h3>
+            <p>Not a risk register nobody reads. Every material risk gets scored, a real mitigation, and a fallback, so when something breaks, which it always does somewhere, the response is already decided instead of improvised under pressure. Plan B through Plan Z.</p>
+          </div>
         </div>
       </div>
     </div>
@@ -325,6 +333,6 @@
   </div>
 </footer>
 
-<script src="js/main.js?v=18"></script>
+<script src="js/main.js?v=19"></script>
 </body>
 </html>

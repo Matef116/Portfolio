@@ -785,57 +785,40 @@ picture > source { display: none; }
 .card p { font-size: 0.95rem; margin: 0; }
 
 /* =========================================================
-   DELIVERY MAP — a zigzag path down the "How I Deliver"
-   section. A soft gold light travels the path continuously;
-   each node brightens and reveals its description on hover
-   or keyboard focus, rather than showing all the text at once.
+   DELIVERY MAP — a horizontal zigzag path across the top of
+   the "How I Deliver" section, a gold light travelling it
+   continuously, with all four descriptions always visible in
+   a dense row of cards underneath (no hover-to-reveal, no
+   empty space).
    ========================================================= */
 .delivery-map {
-  position: relative;
-  max-width: 760px;
+  max-width: 1080px;
   margin: 56px auto 0;
 }
 
-.map-path {
-  position: absolute;
-  left: 50%;
-  top: 4px;
-  bottom: 4px;
-  width: 3px;
-  transform: translateX(-50%);
-  background: rgba(240, 190, 77, 0.18);
-  border-radius: 2px;
-  overflow: hidden;
-}
-.map-path::after {
-  content: "";
-  position: absolute;
-  left: 0; right: 0;
-  top: -55%;
-  height: 55%;
-  background: linear-gradient(180deg, transparent, var(--gold-300) 55%, transparent);
-  animation: map-light-travel 3.4s linear infinite;
-}
-@keyframes map-light-travel {
-  from { top: -55%; }
-  to   { top: 100%; }
+.zigzag-rail {
+  position: relative;
+  height: 150px;
+  margin-bottom: 34px;
 }
 
-.map-step {
-  position: relative;
-  display: grid;
-  grid-template-columns: 1fr 64px 1fr;
-  align-items: center;
-  margin-bottom: 60px;
-  border-radius: var(--radius-md);
+.zigzag-svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.zigzag-track { fill: none; stroke: rgba(240, 190, 77, 0.18); stroke-width: 1.4; vector-effect: non-scaling-stroke; }
+.zigzag-light {
+  fill: none;
+  stroke: var(--gold-300);
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+  stroke-dasharray: 18 420;
+  filter: drop-shadow(0 0 5px rgba(240, 190, 77, 0.85));
+  animation: zigzag-travel 3.6s linear infinite;
 }
-.map-step:last-child { margin-bottom: 0; }
-.map-step:focus { outline: none; }
+@keyframes zigzag-travel { to { stroke-dashoffset: -438; } }
 
-.map-node {
-  grid-column: 2;
-  justify-self: center;
-  position: relative;
+.zigzag-node {
+  position: absolute;
+  transform: translate(-50%, -50%);
   z-index: 2;
   width: 46px; height: 46px;
   border-radius: 50%;
@@ -846,83 +829,46 @@ picture > source { display: none; }
   font-family: var(--font-heading);
   font-weight: 800;
   font-size: 1.05rem;
-  transition: background var(--transition), border-color var(--transition),
-              color var(--transition), transform 280ms var(--ease-out),
-              box-shadow var(--transition);
+}
+.zigzag-node-1 { left: 10%; top: 20%; }
+.zigzag-node-2 { left: 36.66%; top: 80%; }
+.zigzag-node-3 { left: 63.33%; top: 20%; }
+.zigzag-node-4 { left: 90%; top: 80%; }
+
+.map-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
 }
 
-.map-card { min-width: 0; }
-.map-label {
-  color: var(--white);
-  font-size: 1.08rem;
-  font-weight: 700;
-  margin: 0;
-  transition: color var(--transition);
-}
-
-.map-step-left .map-card { grid-column: 1; text-align: right; }
-.map-step-right .map-card { grid-column: 3; text-align: left; }
-
-.map-hint {
-  min-width: 0;
-  font-size: 0.86rem;
-  line-height: 1.55;
-  color: var(--navy-100);
-  background: var(--navy-800);
-  border: 1px solid var(--gold-300);
+.map-card {
+  background: rgba(255, 255, 255, 0.045);
+  border: 1px solid rgba(240, 190, 77, 0.22);
   border-radius: var(--radius-md);
-  padding: 16px 18px;
-  box-shadow: var(--shadow-lift);
-  text-align: left;
-  opacity: 0;
-  transform: translateY(-6px);
-  pointer-events: none;
-  transition: opacity 200ms ease, transform 200ms ease;
+  padding: 20px 20px 22px;
+  transition: transform var(--transition), border-color var(--transition), background var(--transition);
 }
-.map-step-left .map-hint { grid-column: 3; }
-.map-step-right .map-hint { grid-column: 1; }
-
-.map-step:hover .map-node,
-.map-step:focus .map-node,
-.map-step:focus-within .map-node {
-  background: var(--gold-400);
+.map-card:hover {
+  transform: translateY(-4px);
   border-color: var(--gold-300);
-  color: var(--navy-900);
-  transform: scale(1.12);
-  box-shadow: 0 0 0 8px rgba(240, 190, 77, 0.16);
-}
-.map-step:hover .map-label,
-.map-step:focus .map-label,
-.map-step:focus-within .map-label { color: var(--gold-300); }
-.map-step:hover .map-hint,
-.map-step:focus .map-hint,
-.map-step:focus-within .map-hint {
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto;
+  background: rgba(255, 255, 255, 0.075);
 }
 
-@media (max-width: 700px) {
-  .map-path { left: 23px; transform: none; }
-  .map-step {
-    grid-template-columns: 46px 1fr;
-    grid-template-areas: "node card" ". hint";
-    row-gap: 12px;
-    column-gap: 18px;
-  }
-  .map-node { grid-area: node; justify-self: start; }
-  .map-step-left .map-card,
-  .map-step-right .map-card { grid-area: card; text-align: left; min-width: 0; }
-  .map-step-left .map-hint,
-  .map-step-right .map-hint {
-    grid-area: hint;
-    text-align: left;
-    min-width: 0;
-    opacity: 1;
-    transform: none;
-    pointer-events: auto;
-    position: static;
-  }
+.map-card-num {
+  display: block;
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  color: var(--gold-300);
+  margin-bottom: 8px;
+}
+.map-card h3 { color: var(--white); font-size: 1.03rem; margin: 0 0 10px; }
+.map-card p { color: var(--navy-100); font-size: 0.86rem; line-height: 1.55; margin: 0; }
+
+@media (max-width: 900px) {
+  .zigzag-rail { display: none; }
+  .map-cards { grid-template-columns: 1fr; gap: 16px; }
 }
 
 /* =========================================================
