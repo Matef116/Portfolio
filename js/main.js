@@ -150,11 +150,11 @@ function animateCount(el) {
 }
 
 if (!prefersReducedMotion) {
-  const counterContainers = document.querySelectorAll('.glance-grid, .hero-rail, .work-card .stats');
+  const counterContainers = document.querySelectorAll('.glance-grid, .hero-stats, .work-card .stats');
   const counterObserver = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        entry.target.querySelectorAll('strong').forEach(animateCount);
+        entry.target.querySelectorAll('strong, dt').forEach(animateCount);
         counterObserver.unobserve(entry.target);
       }
     });

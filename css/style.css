@@ -591,8 +591,62 @@ img.photo-immersed {
    the photo keeps its bottom alignment. */
 .hero-text {
   align-self: start;
-  padding-bottom: clamp(56px, 7vw, 96px);
+  /* Ceiling lowered from 96px to --space-xl now that the 2x2 stat grid
+     makes the text column taller than the photo on its own -- less
+     compensating padding is needed to keep the hero within one
+     1440x900 viewport. */
+  padding-bottom: clamp(56px, 7vw, var(--space-xl));
 }
+
+/* Name / title block — was a single run-on eyebrow line that wrapped
+   badly ("LEAD" orphaned on its own line) and let the CTA button label
+   visually outrank the person's own name. Split so the rendered size
+   order is: h1 > name > button label (0.92rem) > title.
+   Spacing ladder (tightest to loosest), each step reusing an existing
+   token or an already-used literal value from this file rather than
+   inventing new ones: name-to-title 4px (--space-xs) < title-to-h1 16px
+   (--space-md, >= 2x the 4px above) < h1-to-subhead 22px (existing,
+   unchanged) < subhead-to-CTA 34px (existing, unchanged) < CTA-to-clause
+   44px (the old hero-rail's margin-top, reused) < clause-to-stat-rule
+   48px (the next value up, still under the stats block below). */
+.hero-identity { margin-bottom: var(--space-md); }
+
+p.hero-name {
+  display: block;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 1.18rem; /* reuses h3's size -- one step above the 0.92rem button label */
+  letter-spacing: normal;
+  color: var(--white); /* qualified with the tag to out-specificity .band-deep p's navy-100 */
+  line-height: 1.2;
+}
+.hero-name::before {
+  content: "";
+  display: inline-block;
+  width: 26px;
+  height: 1.5px;
+  background: var(--gold-300);
+  vertical-align: middle;
+  margin-right: 12px;
+  margin-bottom: 3px;
+}
+
+/* Same uppercase/letter-spaced micro-label treatment as .eyebrow, but
+   muted instead of gold-accented, and one step below the 0.92rem button
+   label (0.82rem reuses .glance-item span's existing size). A non-
+   breaking space between "Team" and "Lead" in the markup keeps the
+   title from ever orphaning its last word on its own line. */
+.hero-title, .hero-clause {
+  display: block;
+  font-family: var(--font-body);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-weight: 700;
+  font-size: 0.82rem;
+  color: var(--navy-200);
+}
+.hero-clause { margin-top: 44px; }
+.hero-clause .dot { color: var(--gold-300); }
 
 .hero h1 { color: var(--white); margin-bottom: 22px; }
 .hero h1 em {
@@ -612,34 +666,34 @@ img.photo-immersed {
 
 .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
 
-/* Proof rail — restores the hero's evidence layer */
-.hero-rail {
+/* Stat grid — was a 3-up rail with pipe dividers (Countries / Delivery
+   domains / Gross margins); now a 2x2 grid of different figures, with
+   Countries promoted to its own line above (.hero-clause) and Gross
+   margins moved down to the glance band. Dividers dropped for even grid
+   gutters instead, at ~1.5x the old rail's 26px side padding. */
+.hero-stats {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 39px;
   max-width: 560px;
-  margin-top: 44px;
+  margin-top: 48px;
   border-top: 1px solid rgba(255, 255, 255, 0.12);
   padding-top: 26px;
 }
-.rail-item {
-  padding-right: 26px;
-  border-right: 1px solid rgba(255, 255, 255, 0.11);
-}
-.rail-item:not(:first-child) { padding-left: 26px; }
-.rail-item:last-child { border-right: 0; padding-right: 0; }
-.rail-item strong {
-  display: block;
+.stat-item dt {
   font-family: var(--font-heading);
   font-weight: 800;
-  font-size: 1.5rem;
+  /* fluid instead of the old rail's fixed 1.5rem: settles at the same
+     1.5rem ceiling on wide viewports, steps down toward 1.25rem as the
+     viewport narrows, so tablet/mobile get a smaller figure size without
+     a separate breakpoint override. */
+  font-size: clamp(1.25rem, 2.2vw, 1.5rem);
   letter-spacing: -0.03em;
   color: var(--gold-300);
   font-variant-numeric: tabular-nums;
   line-height: 1.1;
 }
-.rail-item span {
-  display: block;
+.stat-item dd {
   margin-top: 4px;
   font-size: 0.72rem;
   font-weight: 600;
@@ -704,7 +758,7 @@ picture > source { display: none; }
 
 .glance-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 0;
   border-top: 1px solid rgba(255, 255, 255, 0.12);
   padding-top: 40px;
@@ -730,8 +784,7 @@ picture > source { display: none; }
   line-height: 1.02;
   text-wrap: balance;
 }
-.glance-item:nth-child(2) strong,
-.glance-item:nth-child(3) strong { color: var(--gold-300); }
+.glance-item:nth-child(2) strong { color: var(--gold-300); }
 .glance-item span {
   display: block;
   margin-top: auto;
@@ -1991,6 +2044,16 @@ picture > source { display: none; }
 .hero-text > *:nth-child(3), .about-text > *:nth-child(3) { animation-delay: 0.28s; }
 .hero-text > *:nth-child(4) { animation-delay: 0.38s; }
 .hero-text > *:nth-child(5) { animation-delay: 0.48s; }
+.hero-text > *:nth-child(6) { animation-delay: 0.58s; }
+
+/* The four stat cells cascade in their own tighter sequence on top of
+   the stat grid's own 0.58s entrance above, extending the same
+   page-load stagger down to individual cell level. */
+.hero-stats .stat-item { animation: hero-in 0.9s var(--ease-out) both; }
+.hero-stats .stat-item:nth-child(1) { animation-delay: 0.58s; }
+.hero-stats .stat-item:nth-child(2) { animation-delay: 0.63s; }
+.hero-stats .stat-item:nth-child(3) { animation-delay: 0.68s; }
+.hero-stats .stat-item:nth-child(4) { animation-delay: 0.73s; }
 
 .hero-media, .about-media { animation: hero-in-media 1.05s var(--ease-out) 0.30s both; }
 .hero-sail { animation: hero-in-sail 1.3s var(--ease-out) 0.12s both; }
@@ -2038,9 +2101,6 @@ picture > source { display: none; }
 }
 
 @media (max-width: 1080px) {
-  .glance-grid { grid-template-columns: repeat(2, 1fr); gap: 34px 0; }
-  .glance-item:nth-child(2) { border-right: 0; padding-right: 0; }
-  .glance-item:nth-child(3) { padding-left: 0; }
   .badges-grid { grid-template-columns: repeat(3, 1fr); }
   .clients-grid { grid-template-columns: repeat(4, 1fr); }
 }
@@ -2053,8 +2113,14 @@ picture > source { display: none; }
   .hero-media img.photo-immersed { max-height: 46vh; }
   .hero-sail { right: -34%; width: 108vw; opacity: 0.35; }
   .scroll-cue { display: none; }
-  .hero-rail { margin-top: 34px; padding-top: 22px; }
-  .rail-item { padding-right: 22px; margin-right: 22px; }
+  .hero-clause { margin-top: 34px; }
+  .hero-stats { margin-top: 34px; padding-top: 22px; gap: 28px; }
+
+  /* Three stats with no dividers left to trim -- just stack them once
+     the row gets too narrow for three comfortably, same 900px threshold
+     every other hero-adjacent grid on this page already collapses at. */
+  .glance-grid { grid-template-columns: 1fr; gap: 28px; }
+  .glance-item { border-right: 0; padding: 0; }
 
   .about-inner { grid-template-columns: 1fr; }
   .about-media { order: -1; max-width: 360px; margin: 0 auto; }
@@ -2132,12 +2198,6 @@ picture > source { display: none; }
   .band-deep .values-inline .value-card { border-bottom-color: rgba(255,255,255,0.12); }
 
   .story-flow > :last-child:nth-child(odd) { grid-column: auto; }
-
-  .hero-rail { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px 0; max-width: none; }
-  .rail-item { padding-right: 18px; border-right: 0; }
-  .rail-item:not(:first-child) { padding-left: 0; }
-  .rail-item:nth-child(odd) { border-right: 1px solid rgba(255,255,255,0.11); padding-right: 18px; }
-  .rail-item:nth-child(even) { padding-left: 18px; }
 
   .info-row { grid-template-columns: 1fr; gap: 7px; }
   .photo-grid { grid-template-columns: 1fr; }
