@@ -2122,84 +2122,83 @@ picture > source { display: none; }
 }
 
 /* =========================================================
-   SERVICES PAGE — the menu: nine offer cards, two per row,
-   each with an icon, the sell line, and a domain tag.
+   SERVICES PAGE — the menu: nine landscape cards stacked like
+   a loosely fanned deck. Each one is rotated a degree off true,
+   offset left/right, and overlaps the card above it; hovering
+   straightens it and brings it to the front of the stack.
+   Shade cycles through three navy tones so no two cards
+   touching each other are ever the same color.
    ========================================================= */
-.offer-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 22px;
+.offer-stack {
+  display: flex;
+  flex-direction: column;
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 20px 0 40px;
 }
 
 .offer-card {
-  background: var(--white);
-  border: 1px solid var(--slate-200);
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: flex-start;
+  gap: 26px;
+  padding: 32px 40px;
   border-radius: var(--radius-lg);
-  padding: 28px 30px;
-  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+  box-shadow: 0 16px 34px rgba(10, 22, 40, 0.24);
+  transition: transform 340ms var(--ease-out), box-shadow 340ms var(--ease-out);
 }
+.offer-card:not(:first-child) { margin-top: -22px; }
+
+.offer-card:nth-child(3n+1) { background: var(--navy-900); }
+.offer-card:nth-child(3n+2) { background: var(--navy-700); }
+.offer-card:nth-child(3n)   { background: var(--navy-500); }
+
+.offer-card:nth-child(odd)  { transform: rotate(-1.15deg) translateX(-14px); }
+.offer-card:nth-child(even) { transform: rotate(1.15deg) translateX(14px); }
+
 .offer-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-lift);
-  border-color: var(--gold-300);
+  transform: rotate(0deg) translateX(0) translateY(-10px) scale(1.02);
+  box-shadow: 0 28px 56px rgba(10, 22, 40, 0.4);
+  z-index: 50;
 }
 
-.offer-head {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  margin-bottom: 12px;
-}
-.offer-num {
-  font-family: var(--font-heading);
-  font-weight: 800;
-  font-size: 0.85rem;
-  color: var(--gold-600);
-  flex-shrink: 0;
-}
 .offer-icon {
-  width: 42px;
-  height: 42px;
+  width: 58px;
+  height: 58px;
   border-radius: 50%;
-  background: var(--offwhite);
+  background: rgba(255, 255, 255, 0.08);
   border: 1.5px solid var(--gold-300);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
 }
-.offer-icon svg { width: 20px; height: 20px; color: var(--gold-600); }
-.offer-head h3 { margin: 0; font-size: 1.25rem; }
+.offer-icon svg { width: 27px; height: 27px; color: var(--gold-300); }
 
-.offer-sell {
-  font-size: 1.02rem;
-  color: var(--slate-600);
-  line-height: 1.6;
-  margin: 0 0 18px;
+.offer-body { flex: 1; min-width: 0; }
+.offer-num {
+  display: block;
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  color: var(--gold-300);
+  margin-bottom: 6px;
 }
-
-.offer-meta {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 10px 16px;
-  padding-top: 16px;
-  border-top: 1px solid var(--slate-100);
-}
-.offer-domain {
-  font-family: var(--font-body);
-  font-weight: 700;
-  font-size: 0.8rem;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: var(--navy-700);
-  background: var(--slate-50);
-  border-radius: 999px;
-  padding: 6px 14px;
-}
+.offer-body h3 { color: var(--white); font-size: 1.28rem; margin: 0 0 10px; }
+.offer-sell { color: var(--navy-100); font-size: 1.02rem; line-height: 1.6; margin: 0; max-width: 58ch; }
 
 @media (max-width: 900px) {
-  .offer-grid { grid-template-columns: 1fr; }
+  .offer-card,
+  .offer-card:nth-child(odd),
+  .offer-card:nth-child(even) {
+    transform: none;
+    margin-top: 0;
+  }
+  .offer-stack { gap: 16px; }
+  .offer-card:hover { transform: translateY(-6px); }
+  .offer-card { padding: 26px 28px; }
 }
 
 /* =========================================================
