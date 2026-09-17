@@ -2196,3 +2196,74 @@ picture > source { display: none; }
   .proof-card { grid-template-columns: 64px 1fr; }
   .proof-thumb { width: 64px; height: 48px; }
 }
+
+/* =========================================================
+   PROJECT PAGINATION — prev/next case study, every page
+   circularly linked so nothing dead-ends.
+   ========================================================= */
+.project-pagination { padding: clamp(40px, 5vw, 64px) 0; }
+
+.pagination-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.pagination-link {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--white);
+  border: 1px solid var(--slate-200);
+  border-radius: var(--radius-lg);
+  padding: 22px 26px;
+  min-width: 0;
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+}
+.pagination-link:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lift);
+  border-color: var(--gold-300);
+}
+
+.pagination-next { flex-direction: row-reverse; text-align: right; justify-content: flex-start; }
+
+.pagination-arrow {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.35rem;
+  color: var(--gold-600);
+  flex-shrink: 0;
+}
+
+.pagination-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.pagination-label {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold-700);
+}
+
+.pagination-title {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 1.02rem;
+  color: var(--navy-900);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (max-width: 900px) {
+  .pagination-row { grid-template-columns: 1fr; }
+  .pagination-next { flex-direction: row; text-align: left; }
+  .pagination-title { white-space: normal; }
+}
