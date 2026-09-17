@@ -1225,17 +1225,19 @@ picture > source { display: none; }
 .built-card h3 { font-size: 1.08rem; margin-bottom: 10px; }
 .built-card p { font-size: 0.88rem; margin: 0; }
 
-/* Domains folded in as a chip rail under Built */
-.domain-rail {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
+/* Domains — photo tiles under Built, each linking to the case study
+   that proves it (except Engineering, which has no documented case
+   study of its own: background, not a delivered client engagement). */
+.domain-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
   margin-top: 40px;
   padding-top: 30px;
   border-top: 1px solid var(--slate-200);
 }
-.domain-rail-label {
-  width: 100%;
+.domain-grid-label {
+  grid-column: 1 / -1;
   font-family: var(--font-body);
   font-size: 0.68rem;
   font-weight: 600;
@@ -1244,27 +1246,65 @@ picture > source { display: none; }
   color: var(--slate-700);
   margin-bottom: 4px;
 }
-.domain-tile {
-  display: flex;
-  align-items: baseline;
-  gap: 10px;
-  padding: 12px 20px;
-  border: 1px solid var(--slate-200);
-  border-radius: 999px;
-  background: var(--white);
-  transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+.domain-card {
+  position: relative;
+  display: block;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--navy-900);
+  isolation: isolate;
+  transition: transform var(--transition), box-shadow var(--transition);
 }
-.domain-tile:hover { border-color: var(--gold-300); transform: translateY(-2px); box-shadow: var(--shadow); }
-/* gold-700, not gold-500: same WCAG contrast fix as .eyebrow above --
-   this only ever appears on band-light/band-slate sections. */
+.domain-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lift); }
+.domain-card img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 500ms var(--ease-out);
+}
+.domain-card:hover img { transform: scale(1.06); }
+.domain-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(10,22,40,0) 42%, rgba(10,22,40,0.85) 100%);
+}
+.domain-card-icon {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(160deg, var(--navy-800), var(--navy-900));
+}
+.domain-card-icon svg { width: 34%; height: 34%; color: var(--gold-500); opacity: 0.9; }
+.domain-card-body {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 14px 16px;
+  z-index: 1;
+}
+/* gold-300, not gold-700: this label now sits over a dark photo/gradient,
+   not the light band background the WCAG fix elsewhere on this page
+   accounts for. */
 .domain-num {
   font-family: var(--font-heading);
   font-weight: 800;
   font-size: 0.68rem;
-  color: var(--gold-700);
+  color: var(--gold-300);
   letter-spacing: 0.08em;
+  display: block;
+  margin-bottom: 2px;
 }
-.domain-tile h3 { font-size: 0.9rem; margin: 0; font-weight: 600; }
+.domain-card h3 { color: var(--white); font-size: 1rem; margin: 0; font-weight: 600; }
+
+@media (max-width: 720px) {
+  .domain-grid { grid-template-columns: repeat(2, 1fr); }
+}
 
 /* =========================================================
    INFO TABLE — the ledger. Promoted, on navy.

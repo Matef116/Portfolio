@@ -31,7 +31,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&family=Exo+2:wght@400;600&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="images/mohamed-atef-about.webp" type="image/webp">
-<link rel="stylesheet" href="css/style.css?v=44">
+<link rel="stylesheet" href="css/style.css?v=45">
 </head>
 <body>
 
@@ -171,14 +171,52 @@
         </div>
       </div>
 
-      <!-- Portfolio Domains — folded in as a rail, not a seventh card grid -->
-      <div class="domain-rail">
-        <p class="domain-rail-label">Portfolio domains: five domains, one delivery standard</p>
-        <div class="domain-tile"><span class="domain-num">01</span><h3>E-Learning</h3></div>
-        <div class="domain-tile"><span class="domain-num">02</span><h3>Software</h3></div>
-        <div class="domain-tile"><span class="domain-num">03</span><h3>Employment</h3></div>
-        <div class="domain-tile"><span class="domain-num">04</span><h3>Training</h3></div>
-        <div class="domain-tile"><span class="domain-num">05</span><h3>Automation</h3></div>
+      <!-- Portfolio Domains — photo tiles, each linking to its proof -->
+      <div class="domain-grid">
+        <p class="domain-grid-label">Portfolio domains: six domains, one delivery standard</p>
+
+        <a class="domain-card" href="project-saudi-tourism-authority.html">
+          <picture><source type="image/avif" srcset="images/projects/saudi-tourism-authority/cover-370.avif"><img src="images/projects/saudi-tourism-authority/cover-370.webp" alt="E-Learning: Saudi Tourism Authority knowledge center" loading="lazy" decoding="async"></picture>
+          <div class="domain-card-overlay"></div>
+          <div class="domain-card-body"><span class="domain-num">01</span><h3>E-Learning</h3></div>
+        </a>
+
+        <a class="domain-card" href="project-ilo-ssc.html">
+          <picture><source type="image/avif" srcset="images/projects/ilo-ssc/cover-441.avif"><img src="images/projects/ilo-ssc/cover-441.webp" alt="Software: ILO x SSC grievance platform" loading="lazy" decoding="async"></picture>
+          <div class="domain-card-overlay"></div>
+          <div class="domain-card-body"><span class="domain-num">02</span><h3>Software</h3></div>
+        </a>
+
+        <a class="domain-card" href="project-cfye.html">
+          <picture><source type="image/avif" srcset="images/projects/cfye/cover-370.avif"><img src="images/projects/cfye/cover-370.webp" alt="Employment: CFYE youth employment fund" loading="lazy" decoding="async"></picture>
+          <div class="domain-card-overlay"></div>
+          <div class="domain-card-body"><span class="domain-num">03</span><h3>Employment</h3></div>
+        </a>
+
+        <a class="domain-card" href="project-coca-cola-hbc.html">
+          <picture><source type="image/avif" srcset="images/projects/coca-cola-hbc/cover-370.avif"><img src="images/projects/coca-cola-hbc/cover-370.webp" alt="Training: Coca-Cola HBC Youth Empowered" loading="lazy" decoding="async"></picture>
+          <div class="domain-card-overlay"></div>
+          <div class="domain-card-body"><span class="domain-num">04</span><h3>Training</h3></div>
+        </a>
+
+        <a class="domain-card" href="project-icareer-clickup-rollout.html">
+          <picture><source type="image/avif" srcset="images/projects/icareer-clickup-rollout/cover-370.avif"><img src="images/projects/icareer-clickup-rollout/cover-370.webp" alt="Automation: iCareer ClickUp rollout" loading="lazy" decoding="async"></picture>
+          <div class="domain-card-overlay"></div>
+          <div class="domain-card-body"><span class="domain-num">05</span><h3>Automation</h3></div>
+        </a>
+
+        <div class="domain-card">
+          <div class="domain-card-icon">
+            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M8 30a16 16 0 1 1 32 0" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+              <path d="M24 30 32 19" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+              <circle cx="24" cy="30" r="2.6" fill="currentColor"/>
+              <path d="M8 30h3M37 30h3M12.3 17.3l2.1 2.1M35.7 17.3l-2.1 2.1M24 10v3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="domain-card-overlay"></div>
+          <div class="domain-card-body"><span class="domain-num">06</span><h3>Engineering</h3></div>
+        </div>
       </div>
     </div>
   </section>
