@@ -73,7 +73,7 @@ if (heroSection && heroPortrait && !prefersReducedMotion && window.matchMedia('(
 /* ---------- Scroll reveal ---------- */
 const revealTargets = document.querySelectorAll(
   '.card, .step, .work-card, .glance-item, .value-card, .why-card, .built-card, ' +
-  '.tool-tile, .badge-card, .domain-tile, .story-stage, .info-row, ' +
+  '.tool-tile, .badge-card, .domain-card, .story-stage, .info-row, ' +
   '.photo-grid .photo-item, .section-head, .sail-story-inner, .why-tagline, ' +
   '.meta-item, .mandate-list li, .execution-list li, .results-list li, ' +
   '.service-intro, .proof-card, .pagination-link'

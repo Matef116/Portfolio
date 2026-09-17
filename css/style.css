@@ -1225,84 +1225,70 @@ picture > source { display: none; }
 .built-card h3 { font-size: 1.08rem; margin-bottom: 10px; }
 .built-card p { font-size: 0.88rem; margin: 0; }
 
-/* Domains — photo tiles under Built, each linking to the case study
-   that proves it (except Engineering, which has no documented case
-   study of its own: background, not a delivered client engagement). */
+/* Domains — clean icon cards under Built, each linking to the case
+   study that proves it (except Engineering, which has no documented
+   case study of its own: background, not a delivered client engagement). */
+.domain-grid-head {
+  margin-top: 44px;
+  padding-top: 34px;
+  border-top: 1px solid var(--slate-200);
+  margin-bottom: 24px;
+}
+.domain-grid-head .eyebrow { margin-bottom: 8px; }
+.domain-grid-head h3 {
+  font-size: clamp(1.3rem, 2.4vw, 1.6rem);
+  font-weight: 700;
+  color: var(--navy-900);
+  margin: 0;
+}
+
 .domain-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   gap: 16px;
-  margin-top: 40px;
-  padding-top: 30px;
-  border-top: 1px solid var(--slate-200);
 }
-.domain-grid-label {
-  grid-column: 1 / -1;
-  font-family: var(--font-body);
-  font-size: 0.68rem;
-  font-weight: 600;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--slate-700);
-  margin-bottom: 4px;
-}
+
 .domain-card {
-  position: relative;
-  display: block;
-  aspect-ratio: 4 / 3;
-  border-radius: var(--radius-md);
-  overflow: hidden;
-  background: var(--navy-900);
-  isolation: isolate;
-  transition: transform var(--transition), box-shadow var(--transition);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 14px;
+  padding: 30px 14px 24px;
+  background: var(--white);
+  border: 1px solid var(--slate-200);
+  border-radius: var(--radius-lg);
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
 }
-.domain-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lift); }
-.domain-card img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 500ms var(--ease-out);
-}
-.domain-card:hover img { transform: scale(1.06); }
-.domain-card-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(10,22,40,0) 42%, rgba(10,22,40,0.85) 100%);
-}
-.domain-card-icon {
-  position: absolute;
-  inset: 0;
+.domain-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lift); border-color: var(--gold-300); }
+
+.domain-icon {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: var(--offwhite);
+  border: 1.5px solid var(--gold-300);
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(160deg, var(--navy-800), var(--navy-900));
+  flex-shrink: 0;
 }
-.domain-card-icon svg { width: 34%; height: 34%; color: var(--gold-500); opacity: 0.9; }
-.domain-card-body {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  padding: 14px 16px;
-  z-index: 1;
-}
-/* gold-300, not gold-700: this label now sits over a dark photo/gradient,
-   not the light band background the WCAG fix elsewhere on this page
-   accounts for. */
+.domain-icon svg { width: 27px; height: 27px; color: var(--gold-600); }
+
+.domain-card-text { display: flex; flex-direction: column; gap: 3px; }
 .domain-num {
   font-family: var(--font-heading);
   font-weight: 800;
-  font-size: 0.68rem;
-  color: var(--gold-300);
-  letter-spacing: 0.08em;
-  display: block;
-  margin-bottom: 2px;
+  font-size: 0.66rem;
+  color: var(--gold-700);
+  letter-spacing: 0.1em;
 }
-.domain-card h3 { color: var(--white); font-size: 1rem; margin: 0; font-weight: 600; }
+.domain-card h4 { font-size: 0.92rem; margin: 0; font-weight: 600; color: var(--navy-900); }
 
-@media (max-width: 720px) {
+@media (max-width: 900px) {
+  .domain-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 560px) {
   .domain-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
