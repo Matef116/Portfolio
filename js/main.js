@@ -72,7 +72,7 @@ if (heroSection && heroPortrait && !prefersReducedMotion && window.matchMedia('(
 
 /* ---------- Scroll reveal ---------- */
 const revealTargets = document.querySelectorAll(
-  '.card, .map-card, .work-card, .glance-item, .value-card, .why-card, .built-card, ' +
+  '.card, .map-card, .work-card, .value-card, .why-card, .built-card, ' +
   '.tool-tile, .badge-card, .domain-card, .story-stage, .info-row, ' +
   '.photo-grid .photo-item, .section-head, .sail-story-inner, .why-tagline, ' +
   '.meta-item, .mandate-list li, .execution-list li, .results-list li, ' +
@@ -150,7 +150,7 @@ function animateCount(el) {
 }
 
 if (!prefersReducedMotion) {
-  const counterContainers = document.querySelectorAll('.glance-grid, .hero-stats, .work-card .stats');
+  const counterContainers = document.querySelectorAll('.hero-stats, .work-card .stats');
   const counterObserver = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
