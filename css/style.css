@@ -904,23 +904,6 @@ picture > source { display: none; }
   opacity: 1;
 }
 
-/* This path/card set was built for a dark backdrop only (about.html's
-   How I Deliver stays band-deep). The homepage copy now sits on
-   band-light, so it needs light-band equivalents of the same navy/gold
-   pairing used everywhere else on light bands. */
-.band-light .zigzag-track { stroke: rgba(10, 22, 40, 0.14); }
-.band-light .zigzag-light { filter: drop-shadow(0 0 5px rgba(196, 135, 10, 0.45)); stroke: var(--gold-500); }
-.band-light .zigzag-node { background: var(--white); border-color: var(--gold-500); color: var(--gold-700); box-shadow: var(--shadow); }
-.band-light .map-card:hover,
-.band-light .map-card:focus,
-.band-light .map-card:focus-within {
-  background: rgba(10, 22, 40, 0.04);
-  border-color: rgba(196, 135, 10, 0.35);
-}
-.band-light .map-card-num { color: var(--gold-700); }
-.band-light .map-card h3 { color: var(--navy-900); }
-.band-light .map-card p { color: var(--slate-600); }
-
 @media (max-width: 900px) {
   .zigzag-rail { display: none; }
   .map-cards { grid-template-columns: 1fr; gap: 4px; }
