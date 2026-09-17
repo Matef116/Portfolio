@@ -785,11 +785,12 @@ picture > source { display: none; }
 .card p { font-size: 0.95rem; margin: 0; }
 
 /* =========================================================
-   DELIVERY MAP — a horizontal zigzag path across the top of
-   the "How I Deliver" section, a gold light travelling it
-   continuously, with all four descriptions always visible in
-   a dense row of cards underneath (no hover-to-reveal, no
-   empty space).
+   DELIVERY MAP — a horizontal, curved zigzag path across the
+   top of the "How I Deliver" section, a gold light travelling
+   it continuously. Underneath, only the four titles show at
+   rest -- no card, no border, nothing but the title -- and
+   hovering (or keyboard focus) expands that one title into its
+   full description.
    ========================================================= */
 .delivery-map {
   max-width: 1080px;
@@ -842,16 +843,20 @@ picture > source { display: none; }
 }
 
 .map-card {
-  background: rgba(255, 255, 255, 0.045);
-  border: 1px solid rgba(240, 190, 77, 0.22);
+  border: 1px solid transparent;
   border-radius: var(--radius-md);
-  padding: 20px 20px 22px;
-  transition: transform var(--transition), border-color var(--transition), background var(--transition);
+  background: transparent;
+  padding: 16px 18px;
+  cursor: default;
+  transition: background 240ms ease, border-color 240ms ease, box-shadow 240ms ease;
 }
-.map-card:hover {
-  transform: translateY(-4px);
-  border-color: var(--gold-300);
-  background: rgba(255, 255, 255, 0.075);
+.map-card:hover,
+.map-card:focus,
+.map-card:focus-within {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(240, 190, 77, 0.3);
+  box-shadow: var(--shadow-lift);
+  outline: none;
 }
 
 .map-card-num {
@@ -863,12 +868,42 @@ picture > source { display: none; }
   color: var(--gold-300);
   margin-bottom: 8px;
 }
-.map-card h3 { color: var(--white); font-size: 1.03rem; margin: 0 0 10px; }
-.map-card p { color: var(--navy-100); font-size: 0.86rem; line-height: 1.55; margin: 0; }
+.map-card h3 {
+  color: var(--white);
+  font-size: 1.03rem;
+  margin: 0;
+  transition: margin-bottom 240ms ease;
+}
+.map-card:hover h3,
+.map-card:focus h3,
+.map-card:focus-within h3 { margin-bottom: 10px; }
+
+.map-card p {
+  color: var(--navy-100);
+  font-size: 0.86rem;
+  line-height: 1.55;
+  margin: 0;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 320ms ease, opacity 240ms ease;
+}
+.map-card:hover p,
+.map-card:focus p,
+.map-card:focus-within p {
+  max-height: 260px;
+  opacity: 1;
+}
 
 @media (max-width: 900px) {
   .zigzag-rail { display: none; }
-  .map-cards { grid-template-columns: 1fr; gap: 16px; }
+  .map-cards { grid-template-columns: 1fr; gap: 4px; }
+  .map-card {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(240, 190, 77, 0.18);
+  }
+  .map-card h3 { margin-bottom: 10px; }
+  .map-card p { max-height: 260px; opacity: 1; }
 }
 
 /* =========================================================
