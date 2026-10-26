@@ -248,3 +248,15 @@ if (tocLinks.length) {
 
   tocMap.forEach((link, target) => tocObserver.observe(target));
 }
+
+/* ---------- Conversion tracking (GA4) ----------
+   Any element with data-track reports its value as a GA4 event. */
+document.addEventListener('click', e => {
+  const el = e.target.closest('[data-track]');
+  if (!el || typeof gtag !== 'function') return;
+  gtag('event', 'click', {
+    event_category: 'engagement',
+    event_label: el.dataset.track,
+    value: 1
+  });
+});
